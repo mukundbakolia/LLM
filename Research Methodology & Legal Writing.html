@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Methodology & Legal Writing — Complete Reference</title>
+<style>
+  :root{
+    --ink:#1b2a3a;
+    --ink-soft:#2f4256;
+    --paper:#f6f1e6;
+    --paper-2:#efe7d6;
+    --card:#fffdf8;
+    --accent:#8c2f39;
+    --accent-soft:#f4e4e2;
+    --gold:#a9812f;
+    --muted:#6e6659;
+    --border:#e2d9c4;
+    --border-strong:#cdbf9e;
+    --focus:#8c2f39;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;}
+  body{display:flex;flex-direction:column;}
+  h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif;}
+  ::selection{background:var(--accent-soft);}
+  a{color:inherit;}
+  button{font-family:inherit;}
+
+  /* PAGE SWITCHER */
+  .page-nav{flex:0 0 auto;position:sticky;top:0;z-index:60;display:flex;gap:8px;
+    background:var(--ink);padding:10px 16px;border-bottom:2px solid var(--gold);}
+  .page-nav-btn{padding:9px 16px;border-radius:7px;border:1px solid #4a5a6c;background:transparent;
+    color:#d8d0bd;font-size:12.5px;font-weight:600;cursor:pointer;transition:.2s;}
+  .page-nav-btn:hover{border-color:var(--gold);color:#fff;}
+  .page-nav-btn.active{background:var(--gold);border-color:var(--gold);color:#1b2a3a;}
+
+  .app{display:flex;flex:1 1 auto;min-height:0;overflow:hidden;}
+
+  /* LEFT PANEL */
+  .browser{flex:1 1 62%;display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--border-strong);}
+  .browser-head{background:var(--ink);color:#f2ede0;padding:22px 30px 18px;position:relative;}
+  .browser-head::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:6px;
+    background:linear-gradient(90deg,var(--gold),var(--accent) 60%,var(--gold));opacity:.85;}
+  .browser-head h1{font-size:26px;margin:0 0 4px;letter-spacing:.2px;}
+  .browser-head p.sub{margin:0 0 16px;font-size:13px;color:#cfc6b3;}
+  .stats{display:flex;gap:18px;font-size:11.5px;color:#d8d0bd;margin-bottom:16px;flex-wrap:wrap;}
+  .stats span b{color:#fff;font-size:14px;display:block;font-family:Georgia,serif;}
+
+  .controls{display:flex;gap:10px;flex-wrap:wrap;}
+  .search-wrap{position:relative;flex:1 1 220px;}
+  .search-wrap input{width:100%;padding:10px 14px 10px 34px;border-radius:7px;border:1px solid #4a5a6c;
+    background:#25384a;color:#f2ede0;font-size:13px;outline:none;}
+  .search-wrap input::placeholder{color:#93a0ac;}
+  .search-wrap input:focus{border-color:var(--gold);}
+  .search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:13px;opacity:.6;}
+  .tabs{display:flex;gap:6px;}
+  .tab-btn{padding:9px 14px;border-radius:7px;border:1px solid #4a5a6c;background:transparent;color:#d8d0bd;
+    font-size:12.5px;cursor:pointer;transition:.2s;white-space:nowrap;}
+  .tab-btn:hover{border-color:var(--gold);color:#fff;}
+  .tab-btn.active{background:var(--gold);border-color:var(--gold);color:#1b2a3a;font-weight:700;}
+
+  .tree{flex:1;overflow-y:auto;padding:22px 30px 60px;}
+  .no-results{text-align:center;color:var(--muted);font-style:italic;padding:60px 20px;font-size:14px;}
+
+  .category{margin-bottom:14px;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--card);
+    box-shadow:0 1px 2px rgba(27,42,58,.04);}
+  .cat-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;
+    background:linear-gradient(180deg,#fffdf8,#faf4e6);user-select:none;}
+  .cat-head:hover{background:#f8f0dd;}
+  .cat-left{display:flex;align-items:center;gap:12px;}
+  .cat-badge{width:6px;align-self:stretch;border-radius:3px;}
+  .cat-badge.research{background:var(--accent);}
+  .cat-badge.writing{background:var(--gold);}
+  .cat-title{font-family:Georgia,serif;font-size:15.5px;font-weight:700;color:var(--ink);}
+  .cat-count{font-size:11px;color:var(--muted);background:var(--paper-2);padding:2px 9px;border-radius:20px;margin-left:8px;}
+  .cat-chevron{font-size:12px;color:var(--muted);transition:transform .25s;}
+  .category.open .cat-chevron{transform:rotate(90deg);}
+  .cat-body{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+  .category.open .cat-body{max-height:2000px;}
+  .node-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;padding:6px 18px 18px;}
+
+  .node-card{border:1px solid var(--border);border-radius:8px;padding:12px 13px;cursor:pointer;background:#fffefb;
+    transition:.18s;text-align:left;}
+  .node-card:hover{border-color:var(--accent);box-shadow:0 4px 14px rgba(140,47,57,.12);transform:translateY(-1px);}
+  .node-card.active{border-color:var(--accent);background:var(--accent-soft);}
+  .node-type{display:inline-block;font-size:9.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--gold);
+    font-weight:700;margin-bottom:5px;}
+  .node-title{font-size:13px;font-weight:600;color:var(--ink);line-height:1.3;margin-bottom:4px;font-family:Georgia,serif;}
+  .node-desc{font-size:11.5px;color:var(--muted);line-height:1.4;}
+
+  /* RIGHT PANEL */
+  .details{flex:1 1 38%;max-width:520px;background:var(--card);overflow-y:auto;}
+  .details-inner{min-height:100%;display:flex;flex-direction:column;}
+  .d-head{background:var(--ink);color:#f2ede0;padding:26px 28px 22px;position:sticky;top:0;z-index:5;}
+  .d-crumb{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin-bottom:6px;}
+  .d-title{font-family:Georgia,serif;font-size:21px;line-height:1.25;margin:0;}
+  .d-body{padding:24px 28px 50px;flex:1;}
+  .d-desc{font-size:13.5px;line-height:1.65;color:#3a3129;margin-bottom:22px;padding:12px 14px;background:var(--paper-2);
+    border-left:3px solid var(--gold);border-radius:4px;}
+  .d-section{margin-bottom:20px;}
+  .d-section h3{font-family:Georgia,serif;font-size:13.5px;color:var(--accent);text-transform:uppercase;
+    letter-spacing:.6px;margin:0 0 9px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .d-section p{font-size:13px;line-height:1.75;color:#40382f;margin:0;white-space:normal;}
+  .related-wrap{margin-top:8px;}
+  .related-wrap h3{font-family:Georgia,serif;font-size:12px;color:var(--muted);text-transform:uppercase;
+    letter-spacing:.5px;margin-bottom:10px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{font-size:12px;padding:7px 12px;border-radius:20px;border:1px solid var(--border-strong);background:var(--paper);
+    cursor:pointer;color:var(--ink-soft);transition:.15s;}
+  .chip:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .empty-state{display:flex;align-items:center;justify-content:center;height:100%;text-align:center;color:#9c9384;
+    font-style:italic;padding:40px;font-size:14px;}
+
+  ::-webkit-scrollbar{width:9px;}
+  ::-webkit-scrollbar-track{background:var(--paper);}
+  ::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:5px;}
+  ::-webkit-scrollbar-thumb:hover{background:var(--gold);}
+
+  /* PRESENT BUTTONS */
+  .present-btn{padding:9px 16px;border-radius:7px;border:1px solid var(--gold);background:var(--gold);
+    color:#1b2a3a;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;
+    display:inline-flex;align-items:center;gap:6px;transition:.15s;}
+  .present-btn:hover{background:#c39a3f;border-color:#c39a3f;}
+  .cat-present-btn{background:transparent;border:1px solid var(--border-strong);color:var(--muted);
+    width:26px;height:26px;min-width:26px;border-radius:50%;font-size:11px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;margin-left:10px;flex-shrink:0;transition:.15s;}
+  .cat-present-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .d-present-btn{margin:16px 0 4px;padding:8px 14px;border-radius:6px;border:1px solid rgba(255,255,255,.35);
+    background:rgba(255,255,255,.08);color:#f2ede0;font-size:12px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:6px;transition:.15s;}
+  .d-present-btn:hover{background:var(--gold);color:#1b2a3a;border-color:var(--gold);}
+
+  /* ============ FLOW DIAGRAM PAGE ============ */
+  .diagram-page{flex:1 1 auto;min-height:0;display:none;flex-direction:column;background:var(--paper);}
+  .diagram-toolbar{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:14px 24px;background:var(--card);border-bottom:1px solid var(--border-strong);flex-wrap:wrap;}
+  .diagram-toolbar h2{font-size:16px;margin:0;color:var(--ink);}
+  .diagram-toolbar p{margin:2px 0 0;font-size:11.5px;color:var(--muted);}
+  .diagram-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .diagram-action-btn{height:32px;padding:0 14px;border-radius:6px;border:1px solid var(--border-strong);
+    background:#fff;color:var(--ink);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;}
+  .diagram-action-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .legend{display:flex;gap:14px;font-size:11px;color:var(--muted);flex-wrap:wrap;}
+  .legend span{display:inline-flex;align-items:center;gap:5px;}
+  .legend i{width:11px;height:11px;border-radius:3px;display:inline-block;}
+
+  .flow-wrap{flex:1;overflow-y:auto;overflow-x:hidden;padding:28px 22px 60px;}
+  .flow-lanes{display:grid;grid-template-columns:1fr 1fr;gap:38px;max-width:1180px;margin:0 auto;align-items:start;}
+  .flow-lane{display:flex;flex-direction:column;align-items:center;}
+  .flow-lane-head{width:100%;max-width:420px;text-align:center;padding:13px 16px;border-radius:10px;
+    font-family:Georgia,serif;font-weight:700;font-size:15px;letter-spacing:.2px;}
+  .flow-lane-head.research{background:var(--accent);color:#fff;}
+  .flow-lane-head.writing{background:var(--gold);color:#1b2a3a;}
+  .flow-arrow{font-size:15px;color:var(--border-strong);line-height:1;margin:2px 0;}
+  .flow-cat{width:100%;display:flex;flex-direction:column;align-items:center;}
+  .flow-cat-box{width:100%;max-width:420px;display:flex;justify-content:space-between;align-items:center;
+    gap:10px;padding:13px 18px;border-radius:10px;border:1.5px solid var(--border-strong);background:var(--card);
+    cursor:pointer;text-align:left;transition:.15s;font-family:inherit;}
+  .flow-cat-box:hover{border-color:var(--accent);box-shadow:0 4px 14px rgba(140,47,57,.1);}
+  .flow-cat-box.expanded{border-color:var(--accent);background:var(--accent-soft);}
+  .flow-cat-title{font-family:Georgia,serif;font-weight:700;font-size:13.5px;color:var(--ink);}
+  .flow-cat-meta{font-size:11px;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:6px;flex-shrink:0;}
+  .flow-chevron{display:inline-block;transition:transform .2s;font-size:10px;}
+  .flow-cat-box.expanded .flow-chevron{transform:rotate(90deg);}
+  .flow-topics{width:100%;max-width:420px;background:var(--paper-2);border:1px dashed var(--border-strong);
+    border-radius:10px;padding:14px;margin:6px 0 2px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+  .flow-chip{padding:8px 13px;border-radius:20px;border:1px solid var(--border-strong);background:#fffefb;
+    font-size:11.5px;color:var(--ink-soft);cursor:pointer;transition:.15s;text-align:left;}
+  .flow-chip:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .flow-browse-link{width:100%;text-align:center;font-size:11px;color:var(--accent);background:none;
+    border:none;cursor:pointer;padding:4px 0 0;text-decoration:underline;}
+
+  @media (max-width:760px){
+    .flow-lanes{grid-template-columns:1fr;max-width:460px;gap:26px;}
+  }
+
+  /* ============ PRESENTER OVERLAY ============ */
+  body.presenter-active{overflow:hidden;}
+  .presenter{position:fixed;inset:0;z-index:2000;display:none;flex-direction:column;color:#f2ede0;
+    background:radial-gradient(circle at 25% 15%,#26394c,#0f1822 72%);}
+  .presenter.open{display:flex;}
+  .presenter-topbar{padding:calc(14px + env(safe-area-inset-top)) 26px 0;}
+  .presenter-progress{height:4px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;}
+  .presenter-progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--accent));
+    transition:width .25s ease;}
+  .presenter-meta{display:flex;justify-content:space-between;align-items:center;padding:10px 0 0;
+    font-size:12px;color:#cfc6b3;letter-spacing:.4px;}
+  .presenter-close{background:transparent;border:1px solid rgba(255,255,255,.28);color:#f2ede0;
+    width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:14px;line-height:1;}
+  .presenter-close:hover{background:var(--accent);border-color:var(--accent);}
+  .presenter-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.2);color:#f2ede0;width:46px;height:46px;border-radius:50%;
+    font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;z-index:5;}
+  .presenter-nav:hover{background:var(--accent);border-color:var(--accent);}
+  .presenter-nav-prev{left:18px;}
+  .presenter-nav-next{right:18px;}
+  .presenter-stage{flex:1;display:flex;align-items:center;justify-content:center;padding:10px 74px;
+    min-height:0;overflow:hidden;}
+  .slide{max-width:760px;width:100%;max-height:100%;overflow-y:auto;padding:14px 8px;}
+  .slide-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);margin-bottom:10px;}
+  .slide-title{font-family:Georgia,serif;font-size:clamp(22px,4vw,36px);margin:0 0 18px;line-height:1.22;}
+  .slide-desc{font-size:15px;line-height:1.7;color:#e6ddc9;background:rgba(255,255,255,.06);
+    border-left:3px solid var(--gold);padding:14px 16px;border-radius:6px;margin-bottom:24px;}
+  .slide-section{margin-bottom:20px;}
+  .slide-section h3{font-family:Georgia,serif;font-size:14px;color:#e0b979;text-transform:uppercase;
+    letter-spacing:.6px;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:6px;margin:0 0 10px;}
+  .slide-section p{font-size:14.5px;line-height:1.8;color:#efe9da;margin:0;}
+  .slide-related{margin-top:10px;}
+  .slide-related h3{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#b9b0a0;margin-bottom:8px;}
+  .slide-chip{display:inline-block;font-size:12px;padding:6px 12px;border-radius:20px;
+    border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.05);color:#f2ede0;
+    cursor:pointer;margin:0 6px 6px 0;transition:.15s;}
+  .slide-chip:hover{background:var(--gold);border-color:var(--gold);color:#1b2a3a;}
+  .presenter-hint{display:flex;justify-content:center;gap:14px;padding:8px 12px calc(16px + env(safe-area-inset-bottom));
+    font-size:11px;color:#9c9384;flex-wrap:wrap;}
+  .presenter-hint span{background:rgba(255,255,255,.07);padding:4px 10px;border-radius:5px;white-space:nowrap;}
+
+  /* ============ RESPONSIVE / MOBILE ============ */
+  @media (max-width:980px){
+    .app{flex:none;flex-direction:column;height:auto;min-height:100vh;overflow:visible;}
+    .browser{border-right:none;height:auto;}
+    .tree{overflow:visible;max-height:none;}
+    .details{max-width:none;flex:none;}
+    html,body{overflow:auto;}
+    .diagram-page{height:80vh;}
+    .flow-wrap{padding:24px 20px;}
+  }
+
+  @media (max-width:700px){
+    .browser-head{padding:16px 18px 14px;}
+    .browser-head h1{font-size:20px;}
+    .browser-head p.sub{font-size:12px;}
+    .stats{gap:12px;margin-bottom:14px;}
+    .controls{flex-direction:column;align-items:stretch;}
+    .tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px;}
+    .tabs::-webkit-scrollbar{display:none;}
+    .present-btn{justify-content:center;}
+    .tree{padding:16px 16px 40px;}
+    .node-grid{grid-template-columns:1fr;}
+    .cat-title{font-size:14.5px;}
+    .d-head{padding:20px 18px 18px;}
+    .d-body{padding:18px 18px 40px;}
+    .d-title{font-size:19px;}
+    .presenter-stage{padding:12px 46px;}
+    .presenter-nav{width:38px;height:38px;font-size:18px;}
+    .presenter-nav-prev{left:4px;}
+    .presenter-nav-next{right:4px;}
+    .slide-title{font-size:22px;}
+    .slide-desc,.slide-section p{font-size:13.5px;}
+    .presenter-hint{display:none;}
+    .page-nav{padding:8px 12px;}
+    .page-nav-btn{padding:8px 12px;font-size:11.5px;}
+    .diagram-toolbar{padding:10px 14px;}
+    .diagram-toolbar h2{font-size:14px;}
+    .legend{display:none;}
+    .flow-wrap{padding:20px 16px;}
+  }
+
+  @media (max-width:480px){
+    .browser-head h1{font-size:17px;}
+    .stats span b{font-size:12px;}
+    .stats span{font-size:10.5px;}
+    .tab-btn{padding:8px 10px;font-size:11.5px;}
+    .search-wrap input{font-size:12.5px;}
+    .node-title{font-size:12.5px;}
+    .node-desc{font-size:11px;}
+    .d-crumb{font-size:10px;}
+    .presenter-stage{padding:8px 8px;}
+    .presenter-nav{display:none;}
+    .presenter-topbar{padding:calc(10px + env(safe-area-inset-top)) 16px 0;}
+    .presenter-meta{font-size:11px;}
+  }
+
+  @media (pointer:coarse){
+    .tab-btn,.node-card,.chip,.present-btn,.cat-present-btn,.presenter-nav,.presenter-close{min-height:38px;}
+    .chip,.slide-chip{padding:9px 14px;}
+  }
+</style>
+</head>
+<body>
+<div class="page-nav">
+  <button class="page-nav-btn active" data-page="browse" onclick="switchPage('browse')">📋 Browse Topics</button>
+  <button class="page-nav-btn" data-page="diagram" onclick="switchPage('diagram')">🗺 Flow Diagram</button>
+</div>
+<div class="app">
+  <div class="browser">
+    <div class="browser-head">
+      <h1>Research Methodology &amp; Legal Writing</h1>
+      <p class="sub">A complete map of the LLM subject — click any topic for in-depth notes</p>
+      <div class="stats">
+        <span><b>58</b>Topics</span>
+        <span><b>12</b>Categories</span>
+        <span><b>2</b>Core Areas</span>
+      </div>
+      <div class="controls">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="Search topics — e.g. hypothesis, plaint, citation..." oninput="onSearch()">
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" data-branch="all" onclick="setBranch('all')">All</button>
+          <button class="tab-btn" data-branch="research" onclick="setBranch('research')">Research Methods</button>
+          <button class="tab-btn" data-branch="writing" onclick="setBranch('writing')">Legal Writing</button>
+        </div>
+        <button class="present-btn" onclick="startPresenterAll()" title="Present all 58 topics using keyboard navigation">▶ Present All</button>
+      </div>
+    </div>
+    <div class="tree" id="tree"></div>
+  </div>
+
+  <div class="details" id="details">
+    <div class="empty-state">Select a topic on the left to view detailed notes</div>
+  </div>
+</div>
+
+<div class="diagram-page" id="diagramPage">
+  <div class="diagram-toolbar">
+    <div>
+      <h2>Complete Topic Map — all 58 topics</h2>
+      <p>Click a category to expand its topics · click a topic chip to open it in Browse mode.</p>
+    </div>
+    <div class="diagram-controls">
+      <div class="legend">
+        <span><i style="background:var(--accent)"></i>Research Methods</span>
+        <span><i style="background:var(--gold)"></i>Legal Writing</span>
+      </div>
+      <button class="diagram-action-btn" onclick="expandAllCats()">Expand All</button>
+      <button class="diagram-action-btn" onclick="collapseAllCats()">Collapse All</button>
+      <button class="present-btn" onclick="startPresenterAll()">▶ Present All</button>
+    </div>
+  </div>
+  <div class="flow-wrap" id="flowWrap">
+    <div id="flowchartContainer"></div>
+  </div>
+</div>
+
+<div class="presenter" id="presenter" aria-hidden="true">
+  <div class="presenter-topbar">
+    <div class="presenter-progress"><div class="presenter-progress-bar" id="presenterProgressBar"></div></div>
+    <div class="presenter-meta">
+      <span class="presenter-counter" id="presenterCounter">1 / 58</span>
+      <button class="presenter-close" onclick="closePresenter()" aria-label="Close presentation">✕</button>
+    </div>
+  </div>
+  <button class="presenter-nav presenter-nav-prev" onclick="prevSlide()" aria-label="Previous topic">‹</button>
+  <button class="presenter-nav presenter-nav-next" onclick="nextSlide()" aria-label="Next topic">›</button>
+  <div class="presenter-stage" id="presenterStage"></div>
+  <div class="presenter-hint">
+    <span>← → navigate</span><span>Space next</span><span>Home / End jump</span><span>Esc close</span>
+  </div>
+</div>
+
+<script>
+/* ============================ DATA: CATEGORY TREE ============================ */
+const categoriesData = [
+  { id:'r-foundations', branch:'research', title:'Foundations of Legal Research', nodes:[
+    {id:'r-meaning', type:'Concept', title:'Meaning, Nature & Scope of Research', desc:'What research is, its core traits, and its reach within law.'},
+    {id:'r-objectives', type:'Concept', title:'Objectives & Significance of Legal Research', desc:'Why legal research matters to courts, legislature, practice and academia.'},
+    {id:'r-doctrinal-nondoctrinal', type:'Framework', title:'Doctrinal vs Non-Doctrinal Research', desc:'The central divide: law in books vs law in action.'},
+    {id:'r-problem-design', type:'Process', title:'Research Problem & Research Design', desc:'Choosing a problem and building the blueprint of a study.'},
+    {id:'r-hypothesis', type:'Concept', title:'Hypothesis: Meaning, Types & Formulation', desc:'Tentative propositions that a study sets out to test.'},
+    {id:'r-sampling', type:'Technique', title:'Sampling: Meaning, Types & Techniques', desc:'Choosing a representative slice of a larger population.'},
+  ]},
+  { id:'r-data', branch:'research', title:'Data Collection & Analysis', nodes:[
+    {id:'r-primary-secondary', type:'Concept', title:'Primary & Secondary Sources of Data', desc:'First-hand data versus pre-existing data, and when to use each.'},
+    {id:'r-questionnaire', type:'Tool', title:'Questionnaire & Schedule Method', desc:'Self-filled forms versus enumerator-administered schedules.'},
+    {id:'r-interview', type:'Tool', title:'Interview Method', desc:'Structured, unstructured and depth interviews as data tools.'},
+    {id:'r-observation', type:'Tool', title:'Observation Method', desc:'Watching and recording behaviour directly, without questioning.'},
+    {id:'r-data-processing', type:'Process', title:'Data Processing & Analysis', desc:'Editing, coding, classifying and tabulating raw responses.'},
+    {id:'r-statistical', type:'Technique', title:'Statistical Techniques in Legal Research', desc:'Descriptive and inferential statistics applied to socio-legal data.'},
+  ]},
+  { id:'r-methods', branch:'research', title:'Methods of Legal Research', nodes:[
+    {id:'r-doctrinal-method', type:'Method', title:'Doctrinal / Black-Letter Method', desc:'Library-based analysis of statutes, case law and principles.'},
+    {id:'r-case-study', type:'Method', title:'Case Study Method', desc:'Deep, contextual study of one case, institution or event.'},
+    {id:'r-historical', type:'Method', title:'Historical Method', desc:'Tracing how a law or doctrine evolved over time.'},
+    {id:'r-comparative', type:'Method', title:'Comparative Method', desc:'Comparing legal systems and rules across jurisdictions.'},
+    {id:'r-survey', type:'Method', title:'Survey Method', desc:'Systematically collecting data from a sample to describe a population.'},
+    {id:'r-socio-legal', type:'Method', title:'Socio-Legal / Empirical Method', desc:'Studying how law actually functions and lands in society.'},
+  ]},
+  { id:'r-approaches', branch:'research', title:'Qualitative & Quantitative Approaches', nodes:[
+    {id:'r-qualitative', type:'Approach', title:'Qualitative Research Approach', desc:'Understanding meaning, context and experience over numbers.'},
+    {id:'r-quantitative', type:'Approach', title:'Quantitative Research Approach', desc:'Numerical measurement and statistical generalisation.'},
+    {id:'r-mixed', type:'Approach', title:'Mixed Methods Research', desc:'Combining qualitative depth with quantitative breadth.'},
+    {id:'r-interviews-fg', type:'Tool', title:'Interviews & Focus Groups', desc:'Designing guides and facilitating group discussion for rich data.'},
+    {id:'r-content-thematic', type:'Technique', title:'Content & Thematic Analysis', desc:'Systematically coding themes in judgments, statutes or text.'},
+  ]},
+  { id:'r-sources', branch:'research', title:'Sources of Legal Research', nodes:[
+    {id:'r-primary-sources', type:'Source', title:'Primary Legal Sources', desc:'Constitution, statutes, delegated legislation and case law.'},
+    {id:'r-secondary-sources', type:'Source', title:'Secondary Legal Sources', desc:'Commentaries, journals, digests and law commission reports.'},
+    {id:'r-online-databases', type:'Tool', title:'Online Legal Databases & Research Tools', desc:'SCC Online, Manupatra, HeinOnline, Indian Kanoon and search technique.'},
+    {id:'r-legislative-history', type:'Method', title:'Legislative History Research', desc:'Tracing Bills, debates and committee reports behind a statute.'},
+  ]},
+  { id:'r-reporting', branch:'research', title:'Report Writing & Research Ethics', nodes:[
+    {id:'r-proposal', type:'Document', title:'Research Proposal / Synopsis Writing', desc:'The blueprint submitted for approval before a thesis begins.'},
+    {id:'r-thesis', type:'Document', title:'Thesis / Dissertation Structure', desc:'Standard chapterisation from introduction to conclusion.'},
+    {id:'r-footnotes', type:'Technique', title:'Footnotes, Endnotes & Bibliography', desc:'Citing sources within legal academic writing correctly.'},
+    {id:'r-citation-styles', type:'Framework', title:'Citation Styles: Bluebook, ILI, OSCOLA', desc:'The major citation systems used in legal scholarship.'},
+    {id:'r-plagiarism', type:'Concept', title:'Plagiarism & Research Ethics', desc:'UGC norms, academic integrity, and ethical conduct in research.'},
+  ]},
+  { id:'w-foundations', branch:'writing', title:'Foundations of Legal Writing', nodes:[
+    {id:'w-meaning-importance', type:'Concept', title:'Meaning, Importance & Kinds of Legal Writing', desc:'What legal writing covers and why precision matters.'},
+    {id:'w-language-style', type:'Concept', title:'Legal Language & Style', desc:'Traditional legalese, Latin maxims, and the plain-language shift.'},
+    {id:'w-legal-reasoning', type:'Framework', title:'Legal Reasoning: IRAC / CREAC', desc:'The standard structures for analysing and presenting legal issues.'},
+    {id:'w-logic-argument', type:'Concept', title:'Logic & Argumentation in Law', desc:'Deductive, inductive and analogical reasoning in legal argument.'},
+  ]},
+  { id:'w-academic', branch:'writing', title:'Academic & Scholarly Legal Writing', nodes:[
+    {id:'w-case-comment', type:'Document', title:'Case Comment / Case Note Writing', desc:'Critically analysing a judicial decision.'},
+    {id:'w-article-writing', type:'Document', title:'Article & Research Paper Writing', desc:'Structuring and publishing scholarly legal articles.'},
+    {id:'w-moot-memorial', type:'Document', title:'Moot Court Memorial Writing', desc:'Persuasive written submissions for moot competitions.'},
+    {id:'w-thesis-writing', type:'Skill', title:'Legal Thesis / Dissertation Writing', desc:'The craft of scholarly argument-building across chapters.'},
+  ]},
+  { id:'w-drafting-general', branch:'writing', title:'General Principles of Legal Drafting', nodes:[
+    {id:'w-drafting-principles', type:'Framework', title:'General Principles & Rules of Drafting', desc:'The golden rules: clarity, brevity, precision and coherence.'},
+    {id:'w-precedents', type:'Technique', title:'Use of Precedents in Drafting', desc:'Working from model drafts without copying blindly.'},
+    {id:'w-affidavits', type:'Document', title:'Drafting of Affidavits', desc:'Sworn statements of fact and their required structure.'},
+    {id:'w-legal-notices', type:'Document', title:'Drafting of Legal Notices', desc:'Pre-litigation notices and their statutory role.'},
+  ]},
+  { id:'w-pleadings', branch:'writing', title:'Drafting of Pleadings & Conveyancing', nodes:[
+    {id:'w-plaint', type:'Document', title:'Drafting of Plaint', desc:'The plaintiff\'s foundational pleading under Order VII CPC.'},
+    {id:'w-written-statement', type:'Document', title:'Drafting of Written Statement', desc:'The defendant\'s formal reply under Order VIII CPC.'},
+    {id:'w-petitions', type:'Document', title:'Drafting of Petitions & Applications', desc:'Writs, bail applications, interim applications and revisions.'},
+    {id:'w-conveyancing', type:'Document', title:'Conveyancing: Sale, Lease, Mortgage & Gift Deeds', desc:'Drafting instruments that transfer interest in property.'},
+    {id:'w-will', type:'Document', title:'Drafting of Wills', desc:'Testamentary documents directing distribution of assets.'},
+  ]},
+  { id:'w-contracts-docs', branch:'writing', title:'Drafting of Contracts & Commercial Documents', nodes:[
+    {id:'w-contracts', type:'Document', title:'Drafting of Contracts & Agreements', desc:'Essential elements and standard clauses of a contract.'},
+    {id:'w-poa', type:'Document', title:'Power of Attorney', desc:'Authorising an agent to act for a principal — general vs special.'},
+    {id:'w-partnership', type:'Document', title:'Partnership Deed', desc:'The governing document of a partnership firm.'},
+    {id:'w-legal-opinion', type:'Document', title:'Legal Memoranda & Opinion Writing', desc:'Objective written advice analysing a client\'s legal issue.'},
+  ]},
+  { id:'w-style', branch:'writing', title:'Style, Citation & Revision', nodes:[
+    {id:'w-clarity', type:'Skill', title:'Clarity & Plain Language', desc:'Writing legal text that is precise yet genuinely readable.'},
+    {id:'w-citation', type:'Skill', title:'Citation & Legal Referencing', desc:'Attributing authority correctly within legal writing.'},
+    {id:'w-structure', type:'Skill', title:'Structure & Organization', desc:'Macro and micro structuring of legal documents.'},
+    {id:'w-persuasion', type:'Skill', title:'Persuasive Writing Techniques', desc:'Framing, sequencing and ethical limits of advocacy writing.'},
+    {id:'w-editing', type:'Skill', title:'Editing, Proofreading & Revision', desc:'The layered review process before a document is finalised.'},
+  ]},
+];
+
+/* ============================ DATA: DETAIL CONTENT ============================ */
+const db = {
+
+'r-meaning':{title:'Meaning, Nature & Scope of Research',category:'Foundations of Legal Research',
+description:'Research is a systematic, objective inquiry undertaken to discover new facts, verify existing ones, or arrive at fresh conclusions about a problem. In law, it blends close textual analysis with, increasingly, an examination of how law actually operates in society.',
+related:['r-objectives','r-doctrinal-nondoctrinal','r-problem-design'],
+sections:[
+{heading:'Meaning',content:`Research derives from "re" + "search" — to search again, more carefully.\nIt is a purposive, planned investigation, not casual reading or opinion-forming.\nIn law, research means a systematic examination of legal rules, principles, institutions and their working.\nIt seeks answers that are verifiable and can withstand scrutiny by other scholars.`},
+{heading:'Nature of Research',content:`Systematic — follows a defined, ordered procedure rather than random inquiry.\nObjective — findings are based on evidence, not personal bias.\nEmpirical or analytical — grounded in either observed data or logical analysis of texts.\nCumulative — builds upon, tests, or refines existing knowledge.\nReplicable — another researcher following the same method should reach comparable conclusions.\nPurposive — always directed at solving a specific, defined problem.`},
+{heading:'Scope of Legal Research',content:`Analysis of statutory provisions and constitutional text.\nStudy of judicial trends and the evolution of precedent.\nComparative study of legal systems and international instruments.\nAssessment of the social, economic and political impact of law.\nContribution to law reform, legislative drafting, and policy formulation.\nSupport for legal education, practice, and judicial decision-making.`},
+{heading:'Why It Matters for an LLM Scholar',content:`Forms the backbone of the dissertation/thesis requirement.\nTrains the ability to read critically rather than descriptively.\nBuilds the discipline needed for law reform advocacy and academic publishing.\nDevelops transferable skills — literature review, structured argument, evidence-based conclusions.`}
+]},
+
+'r-objectives':{title:'Objectives & Significance of Legal Research',category:'Foundations of Legal Research',
+description:'Legal research is never an end in itself — it serves the judiciary, the legislature, the profession, academia and society by testing, explaining, and improving the law.',
+related:['r-meaning','r-doctrinal-nondoctrinal','r-socio-legal'],
+sections:[
+{heading:'Core Objectives',content:`To discover new facts or verify and test existing legal propositions.\nTo analyse the meaning, scope and application of statutory provisions.\nTo trace and evaluate judicial trends on a given point of law.\nTo identify gaps, ambiguities or inconsistencies in the law.\nTo suggest concrete reforms grounded in evidence.\nTo test hypotheses about the social effect or implementation of a law.`},
+{heading:'Significance for the Judiciary',content:`Well-researched arguments and amicus material assist courts in complex matters.\nComparative and historical research aids purposive interpretation.\nEmpirical findings on delay, pendency, or impact inform judicial administration.`},
+{heading:'Significance for the Legislature & Policy Makers',content:`Identifies implementation gaps that justify legislative amendment.\nInforms Law Commission reports and Parliamentary Standing Committee work.\nSupports evidence-based policy rather than reactive law-making.`},
+{heading:'Significance for the Legal Profession & Academia',content:`Sharpens case preparation, drafting and argumentation for practitioners.\nBuilds the scholarly literature that trains future lawyers and judges.\nEnhances access to justice by clarifying rights for the public.\nContributes to India\'s legal system\'s standing in comparative and international scholarship.`}
+]},
+
+'r-doctrinal-nondoctrinal':{title:'Doctrinal vs Non-Doctrinal Research',category:'Foundations of Legal Research',
+description:'This is the single most important distinction in legal research methodology: doctrinal research studies "law in books," while non-doctrinal (empirical/socio-legal) research studies "law in action."',
+related:['r-doctrinal-method','r-socio-legal','r-case-study'],
+sections:[
+{heading:'Doctrinal Research — "Law in Books"',content:`Library-based, desk research using primary and secondary legal sources.\nAsks "what is the law" on a given point, and how it should be interpreted.\nInvolves systematic exposition of rules, analysis of relationship between rules, and prediction of future developments.\nRelies on statutes, case law, commentaries, and legal principles rather than field data.\nOutput is typically doctrinal exposition, critique, and reform suggestions.`},
+{heading:'Non-Doctrinal Research — "Law in Action"',content:`Also called empirical or socio-legal research; studies how law actually functions in society.\nUses field methods: surveys, interviews, observation, case studies of institutions.\nOften tests a hypothesis about law\'s social, economic, or behavioural impact.\nExamples: impact of the POCSO Act on conviction rates; litigants\' experience of delay in family courts.\nOutput includes statistical findings, patterns, and policy recommendations grounded in data.`},
+{heading:'Key Points of Difference',content:`Source of data: library materials vs field-collected data.\nApproach: analytical/interpretive vs empirical/observational.\nTools: case analysis and statutory interpretation vs questionnaires, interviews, statistics.\nPurpose: to state and interpret law vs to assess its real-world effect.\nSkillset: close reading and legal reasoning vs research design, sampling, and data analysis.`},
+{heading:'When to Use Which',content:`Use doctrinal research when the question is interpretive — meaning, scope, consistency of legal provisions.\nUse non-doctrinal research when the question is about impact, implementation, or behaviour.\nMany strong LLM dissertations combine both: a doctrinal chapter on the law "as it stands," followed by an empirical chapter testing its actual operation.`}
+]},
+
+'r-problem-design':{title:'Research Problem & Research Design',category:'Foundations of Legal Research',
+description:'Before any data is collected, the researcher must define a clear problem and lay out the blueprint — the research design — that will guide the entire study.',
+related:['r-hypothesis','r-proposal','r-sampling'],
+sections:[
+{heading:'Identifying a Research Problem',content:`A research problem is a gap, contradiction, or unresolved question that merits systematic investigation.\nSources: gaps found in literature review, recent legislative or judicial developments, practical experience, discussions with experts.\nA vague topic ("cyber law in India") is not a problem; a problem is specific ("adequacy of the IT Act 2000 in addressing deepfake-based defamation").`},
+{heading:'Criteria for a Good Research Problem',content:`Researchable — data or material must realistically be obtainable.\nSignificant — should add something new or resolve a live controversy.\nFeasible — achievable within the time, resources and access available.\nSpecific — narrow enough to be answered thoroughly, not superficially.\nOriginal — not merely a restatement of settled law.`},
+{heading:'Research Design — The Blueprint',content:`Exploratory design — used when little is known; aims to generate insight and hypotheses.\nDescriptive design — systematically describes characteristics of a phenomenon (e.g., pendency rates).\nExplanatory/causal design — tests relationships between variables (e.g., legal aid access and conviction outcomes).\nExperimental design — rare in law, but used in behavioural-law studies.`},
+{heading:'Components of a Research Design',content:`Statement of the problem and objectives.\nReview of literature establishing the gap.\nHypothesis or research questions.\nChoice of method (doctrinal, empirical, or mixed).\nSampling plan and data collection tools.\nPlan of analysis and anticipated chapterisation.\nRealistic time schedule.`}
+]},
+
+'r-hypothesis':{title:'Hypothesis: Meaning, Types & Formulation',category:'Foundations of Legal Research',
+description:'A hypothesis is a tentative, testable statement predicting a relationship between two or more variables — the working assumption a study sets out to confirm or refute.',
+related:['r-problem-design','r-statistical','r-quantitative'],
+sections:[
+{heading:'Meaning',content:`A hypothesis is an educated guess, stated in declarative form, about the expected outcome of a study.\nIt must be specific enough to be tested against evidence — either doctrinal analysis or empirical data.\nExample: "Mandatory pre-litigation mediation reduces average case pendency in commercial disputes."`},
+{heading:'Characteristics of a Good Hypothesis',content:`Clear and unambiguous in its terms.\nTestable/falsifiable — it must be possible, in principle, to disprove it.\nSpecific — identifies the variables and the expected relationship.\nGrounded in existing theory or prior literature.\nValue-neutral in its wording, even if the researcher has a viewpoint.`},
+{heading:'Types of Hypotheses',content:`Null hypothesis (H0) — states there is no relationship/effect; the default position to be tested.\nAlternative hypothesis (H1) — states the relationship/effect the researcher expects.\nDescriptive hypothesis — describes the existence or characteristics of a variable.\nRelational hypothesis — proposes a relationship between two or more variables.\nCausal hypothesis — proposes that one variable causes a change in another.\nWorking hypothesis — a provisional hypothesis refined as the study proceeds.`},
+{heading:'Formulating a Hypothesis',content:`Begin from a research question surfaced during the literature review.\nGround it in an existing theory, prior study, or a logical inference from doctrine.\nState it so a specific method (survey, statistical test, doctrinal test) can confirm or refute it.\nIn purely doctrinal research, a "hypothesis" is often replaced by a research question or a proposition to be established through legal argument, since testing is analytical rather than statistical.`}
+]},
+
+'r-sampling':{title:'Sampling: Meaning, Types & Techniques',category:'Foundations of Legal Research',
+description:'Sampling is the process of selecting a manageable, representative subset of a larger population so that findings can be generalised without studying every unit.',
+related:['r-survey','r-questionnaire','r-quantitative'],
+sections:[
+{heading:'Why Sample Instead of Census',content:`Studying an entire population is often too costly, slow, or physically impossible.\nA well-designed sample can, paradoxically, be more accurate than a poorly conducted census because more care can be devoted to each unit.\nSampling makes empirical legal research (e.g., surveying litigants across a state) practically feasible.`},
+{heading:'Probability Sampling',content:`Simple random sampling — every unit has an equal, known chance of selection.\nStratified sampling — population divided into relevant strata (e.g., by court level) then randomly sampled within each.\nSystematic sampling — every nth unit is selected from a list.\nCluster sampling — naturally occurring groups (e.g., districts) are randomly selected, then all/some units within are studied.\nMulti-stage sampling — combines several of the above across successive stages.`},
+{heading:'Non-Probability Sampling',content:`Convenience sampling — units selected because they are easiest to access.\nPurposive/judgmental sampling — units selected deliberately because they hold relevant characteristics (e.g., only judges who have handled a specific statute).\nQuota sampling — fixed quotas are filled from different subgroups, without random selection within them.\nSnowball sampling — existing subjects refer further subjects; useful for hard-to-reach populations (e.g., undertrial prisoners).`},
+{heading:'Sample Size & Legal Research Application',content:`Sample size depends on population size, expected variability, desired confidence level, and available resources.\nLegal research often samples case law (e.g., every reported judgment on a section over ten years) as well as human subjects (litigants, lawyers, judges).\nA poorly chosen sample undermines the credibility of even a well-designed questionnaire.`}
+]},
+
+'r-primary-secondary':{title:'Primary & Secondary Sources of Data',category:'Data Collection & Analysis',
+description:'All empirical research rests on data that is either freshly collected by the researcher (primary) or already existing in some recorded form (secondary).',
+related:['r-questionnaire','r-interview','r-primary-sources'],
+sections:[
+{heading:'Primary Data',content:`Data collected first-hand by the researcher for the specific study.\nTools: questionnaires, schedules, interviews, observation, experiments.\nAdvantages: current, directly relevant, tailored to the exact research question.\nDisadvantages: time-consuming, costly, and dependent on respondent cooperation and honesty.`},
+{heading:'Secondary Data',content:`Data that already exists, collected earlier by someone else for a different (or general) purpose.\nSources: government reports, NCRB/NJDG statistics, court records, published surveys, books, journal articles, NGO reports.\nAdvantages: economical, quick to access, often covers a longer time span.\nDisadvantages: may be outdated, collected with a different definition/purpose, and not tailored to the present hypothesis.`},
+{heading:'Choosing Between Them',content:`Check relevance — does the secondary data actually measure what the study needs?\nCheck reliability — who collected it, and how rigorous was their method?\nCheck adequacy — does it cover the required time period, geography or population?\nMany dissertations use secondary data to establish the background/context, then primary data to test the specific hypothesis.`}
+]},
+
+'r-questionnaire':{title:'Questionnaire & Schedule Method',category:'Data Collection & Analysis',
+description:'Two closely related tools for structured data collection — one filled in by the respondent, the other filled in by an enumerator on the respondent\'s behalf.',
+related:['r-primary-secondary','r-survey','r-sampling'],
+sections:[
+{heading:'Questionnaire',content:`A pre-set list of written questions the respondent fills in themselves, without the researcher present.\nSuited to literate respondents and wide geographic distribution (e.g., mailed or online to lawyers nationwide).\nCheap and quick to administer, but suffers from lower response rates and no opportunity to clarify confusion.`},
+{heading:'Schedule',content:`Similar list of questions, but filled in by a trained enumerator who visits and asks the respondent directly.\nSuited to illiterate or rural populations, or where response rates must be high.\nMore accurate and complete, but far more costly and time-consuming to administer at scale.`},
+{heading:'Design Principles',content:`Keep language clear, simple, and free of legal jargon unless the audience is legal professionals.\nSequence questions logically — general to specific, non-sensitive to sensitive.\nAvoid leading questions ("Don\'t you agree that...") and double-barrelled questions (asking two things at once).\nMix closed-ended questions (dichotomous, multiple-choice, Likert scale) with a few open-ended ones for richer detail.\nAlways pilot-test the instrument on a small group before full administration.`}
+]},
+
+'r-interview':{title:'Interview Method',category:'Data Collection & Analysis',
+description:'A face-to-face, telephonic, or virtual conversation between researcher and respondent used to gather detailed, flexible data.',
+related:['r-interviews-fg','r-qualitative','r-observation'],
+sections:[
+{heading:'Types of Interviews',content:`Structured interview — fixed set of questions, asked in the same order to every respondent.\nUnstructured interview — open conversation guided by broad themes, allowing the respondent to lead.\nSemi-structured interview — a core set of questions with room for follow-up probes.\nFocused interview — concentrates on a respondent\'s experience of a specific, defined event.\nDepth interview — long, exploratory conversation aimed at uncovering underlying motivations.`},
+{heading:'Advantages',content:`Allows the researcher to clarify ambiguous questions in real time.\nCaptures non-verbal cues, tone, and nuance that a written questionnaire cannot.\nGenerally achieves a higher response and completion rate than mailed questionnaires.\nWell suited to sensitive or complex legal topics (e.g., experiences of custodial abuse).`},
+{heading:'Limitations',content:`Costly and time-consuming, especially across a wide geographic sample.\nInterviewer bias — tone, phrasing or body language can subtly influence answers.\nRequires genuine skill to build rapport while remaining neutral.\nHarder to standardise and statistically analyse than closed-ended questionnaire data.`},
+{heading:'Application in Legal Research',content:`Interviewing judges, lawyers, litigants or police officers for socio-legal studies.\nCommon in studies of access to justice, legal aid effectiveness, and implementation of newer statutes.\nOften paired with a survey — a "sequential explanatory" mixed-methods design (see Mixed Methods).`}
+]},
+
+'r-observation':{title:'Observation Method',category:'Data Collection & Analysis',
+description:'A method of gathering data by systematically watching and recording behaviour or events as they naturally occur, without directly questioning the subjects.',
+related:['r-interview','r-qualitative','r-case-study'],
+sections:[
+{heading:'Types of Observation',content:`Participant observation — the researcher becomes part of the setting being studied (e.g., sitting in a legal aid clinic).\nNon-participant observation — the researcher observes from outside without joining the activity.\nStructured observation — uses a pre-set checklist or coding scheme.\nUnstructured observation — records events flexibly as they unfold, without a rigid checklist.\nControlled vs uncontrolled — whether the setting is a natural environment or an artificially arranged one.`},
+{heading:'Applications in Legal Research',content:`Courtroom observation studies — recording how bail hearings or mediation sessions actually proceed.\nPolice station or prison studies — observing procedural compliance with statutory safeguards.\nTribunal proceedings — studying informality, delay, or accessibility in practice.`},
+{heading:'Advantages & Limitations',content:`Advantage: produces direct evidence of behaviour, not dependent on self-report or memory.\nAdvantage: can reveal gaps between stated procedure and actual practice.\nLimitation: observer bias — the researcher\'s presence may itself alter behaviour (the "Hawthorne effect").\nLimitation: access to courts, police stations, or prisons often requires official permission and can be restricted.\nLimitation: time-consuming, and findings can be difficult to generalise beyond the observed setting.`}
+]},
+
+'r-data-processing':{title:'Data Processing & Analysis',category:'Data Collection & Analysis',
+description:'The stage where raw responses collected through questionnaires, interviews or observation are converted into organised, analysable information.',
+related:['r-statistical','r-content-thematic','r-sampling'],
+sections:[
+{heading:'Editing',content:`Checking every response for completeness — are all relevant questions answered?\nChecking for consistency — do answers logically fit together?\nChecking for accuracy — spotting and correcting or discarding obviously erroneous entries.`},
+{heading:'Coding',content:`Assigning numerical or symbolic codes to responses so they can be tabulated and analysed.\nFor closed-ended questions, coding is usually decided before data collection begins.\nFor open-ended qualitative responses, codes are usually developed inductively after reading the raw data.`},
+{heading:'Classification & Tabulation',content:`Classification organises data into meaningful categories (e.g., by court level, by respondent occupation).\nTabulation arranges classified data into rows and columns for easy comparison and calculation.\nWell-designed tables are the foundation for later statistical analysis and graphical presentation.`},
+{heading:'Analysis & Interpretation',content:`Qualitative analysis: thematic coding, content analysis, narrative interpretation of non-numerical data.\nQuantitative analysis: descriptive and inferential statistics applied to numerical data.\nInterpretation connects the findings back to the original hypothesis or research question — what do the numbers or themes actually mean for the legal problem being studied?\nConclusions must be drawn cautiously, distinguishing correlation from causation.`}
+]},
+
+'r-statistical':{title:'Statistical Techniques in Legal Research',category:'Data Collection & Analysis',
+description:'Quantitative tools used to summarise data and test relationships between variables in empirical legal studies.',
+related:['r-hypothesis','r-quantitative','r-data-processing'],
+sections:[
+{heading:'Descriptive Statistics',content:`Frequency and percentage distributions — how often each response occurs.\nMeasures of central tendency — mean, median, mode.\nMeasures of dispersion — range, standard deviation, variance.\nUsed to summarise, for example, case pendency data or survey responses at a glance.`},
+{heading:'Inferential Statistics',content:`Chi-square test — tests association between two categorical variables (e.g., gender and bail outcome).\nt-test — compares means between two groups (e.g., disposal time in two different courts).\nCorrelation — measures the strength of a relationship between two variables.\nRegression — models how one or more variables predict an outcome variable.\nThese tests allow the researcher to accept or reject the null hypothesis with a stated level of confidence.`},
+{heading:'Presentation of Statistical Data',content:`Tables — precise, detailed numerical summaries.\nBar diagrams and pie charts — quick visual comparison of categories.\nLine graphs — useful for showing trends over time (e.g., conviction rates across years).`},
+{heading:'A Word of Caution',content:`Statistical significance is not the same as legal or practical significance — a small but "significant" difference may not matter in policy terms.\nSample bias or a flawed questionnaire will produce misleading statistics no matter how sophisticated the test.\nSoftware such as SPSS or Excel automates calculation but does not substitute for sound research design.`}
+]},
+
+'r-doctrinal-method':{title:'Doctrinal / Black-Letter Method',category:'Methods of Legal Research',
+description:'The traditional, library-based method of legal research that treats law as a closed, coherent system of rules to be identified, analysed and synthesised.',
+related:['r-doctrinal-nondoctrinal','r-case-study','r-historical'],
+sections:[
+{heading:'Meaning',content:`Also called the "black-letter law" approach — it asks "what the law is" on a given point.\nTreats statutes, case law, and legal principles as the primary object of study, read closely and systematically.\nAims to expose the underlying legal principles, their relationship to one another, and how they resolve a given problem.`},
+{heading:'Typical Steps',content:`Identify a precise legal issue or question.\nCollect relevant statutes, delegated legislation, and case law.\nGather secondary commentary — textbooks, articles, and law commission reports.\nAnalyse and synthesise these materials to state the law clearly.\nCritically evaluate the law\'s coherence, and where relevant, suggest reform.`},
+{heading:'Tools of Doctrinal Research',content:`Bare Acts and annotated statutes.\nOfficial and unofficial law reports.\nLegal commentaries, treatises and encyclopaedias (e.g., Halsbury\'s Laws).\nDigests and citators to trace how a provision or precedent has been treated.`},
+{heading:'Strengths & Limitations',content:`Strength: rigorous, precise, and the foundation of legal reasoning and argument.\nStrength: does not require field access, funding, or ethical clearance in the way empirical work does.\nLimitation: cannot, on its own, tell us how a law actually operates or is experienced on the ground.\nLimitation: risk of remaining purely descriptive without critical or comparative depth.`}
+]},
+
+'r-case-study':{title:'Case Study Method',category:'Methods of Legal Research',
+description:'An in-depth, contextual examination of a single case, institution, event, or a small number of them, to understand a phenomenon holistically.',
+related:['r-doctrinal-method','r-historical','r-observation'],
+sections:[
+{heading:'Meaning & Types',content:`A case study examines one unit — a landmark judgment, a tribunal, a legal aid clinic — in full depth and context.\nIntrinsic case study — the case is studied for its own sake, because it is inherently interesting.\nInstrumental case study — the case is used as a vehicle to understand a broader issue.\nCollective/comparative case study — several cases are studied together to identify patterns.`},
+{heading:'Application in Legal Research',content:`Analysing a landmark judgment\'s reasoning, aftermath and precedential impact (e.g., studying the aftermath of a constitutional bench ruling).\nStudying a single institution\'s functioning — a family court, a lok adalat, or a specific tribunal.\nExamining the socio-legal trajectory of a single major litigation from filing to execution.`},
+{heading:'Data Sources & Method',content:`Judgments and case records at every stage of the litigation.\nPleadings, orders, and appellate history.\nInterviews with parties, counsel, or court staff where access permits.\nMedia coverage and secondary commentary for context.`},
+{heading:'Strengths & Limitations',content:`Strength: produces a rich, holistic, and contextual understanding impossible to get from statistics alone.\nStrength: well suited to exploring "why" and "how" questions.\nLimitation: findings from one case cannot automatically be generalised to all similar situations.\nLimitation: risk of researcher bias in selecting and interpreting the case.`}
+]},
+
+'r-historical':{title:'Historical Method',category:'Methods of Legal Research',
+description:'A method that traces the evolution of a legal rule, institution or doctrine over time to understand its rationale and current form.',
+related:['r-doctrinal-method','r-comparative','r-legislative-history'],
+sections:[
+{heading:'Meaning & Purpose',content:`Traces how a specific law, doctrine, or institution has changed across different periods.\nHelps explain why a rule takes its present form, and what social or political forces shaped it.\nOften used to justify or critique current law by reference to its original purpose.`},
+{heading:'Sources',content:`Historical statutes and their preambles.\nOld and repealed case law showing earlier judicial thinking.\nParliamentary debates, Bills, and travaux préparatoires (preparatory materials for treaties).\nArchival material — official records, government files, and historical commentary.`},
+{heading:'Process',content:`Compile source material in chronological order.\nApply external criticism — verifying authenticity of the source itself.\nApply internal criticism — critically evaluating the reliability and meaning of the content.\nInterpret the trend or pattern of change revealed across the sources.`},
+{heading:'Application & Value',content:`Tracing the evolution of a constitutional provision (e.g., the changing scope of Article 21).\nStudying the historical development of personal laws or criminal justice reforms.\nAids purposive statutory interpretation by uncovering original legislative intent.`}
+]},
+
+'r-comparative':{title:'Comparative Method',category:'Methods of Legal Research',
+description:'A method that studies the laws, institutions, and legal cultures of two or more jurisdictions side by side to identify similarities, differences, and lessons for reform.',
+related:['r-historical','r-doctrinal-method','r-legislative-history'],
+sections:[
+{heading:'Purpose',content:`Supports law reform by drawing on how other jurisdictions have solved a similar problem.\nAids harmonisation of law, especially in international trade, arbitration, and human rights.\nDeepens understanding of one\'s own legal system by contrast with another.`},
+{heading:'Process',content:`Select appropriate comparator jurisdictions — chosen for relevance, not convenience.\nLook for functional equivalents rather than literal textual parallels (a rule performing the same social function may look very different on paper).\nAnalyse each system in its own social, political and historical context before comparing.\nSynthesise findings into concrete, transferable lessons or reform proposals.`},
+{heading:'Challenges',content:`Differing legal cultures and underlying assumptions can make direct comparison misleading.\nTranslation and terminology issues when working with foreign-language sources.\nRisk of superficial comparison that ignores how a rule is actually enforced in its home jurisdiction.`},
+{heading:'Examples',content:`Comparing India\'s Arbitration and Conciliation Act with the UNCITRAL Model Law and UK Arbitration Act.\nComparing India\'s Digital Personal Data Protection Act, 2023 with the EU\'s GDPR.\nComparing bail jurisprudence across common law jurisdictions.`}
+]},
+
+'r-survey':{title:'Survey Method',category:'Methods of Legal Research',
+description:'A method for systematically collecting data from a representative sample in order to describe the characteristics, opinions, or experiences of a wider population.',
+related:['r-questionnaire','r-sampling','r-quantitative'],
+sections:[
+{heading:'Meaning & Steps',content:`Define the precise objective — what exactly is being measured or described?\nDesign the sampling plan to select a representative group from the population.\nDesign the instrument — usually a questionnaire or schedule.\nPilot-test the instrument on a small group and refine it.\nAdminister the survey, then process and analyse the collected data.`},
+{heading:'Types of Surveys',content:`Cross-sectional survey — data collected at a single point in time across a sample.\nLongitudinal survey — the same or comparable respondents surveyed repeatedly over time.\nCensus survey — every unit in the population is studied (rare, given cost).\nSample survey — only a representative subset is studied and results are generalised.`},
+{heading:'Application in Legal Research',content:`Measuring public awareness or perception of a new law or legal aid scheme.\nGauging litigant satisfaction with court processes.\nSurveying practising lawyers\' opinions on proposed reforms.`},
+{heading:'Strengths & Limitations',content:`Strength: breadth — can cover a large, geographically dispersed population efficiently.\nStrength: results are generally more generalisable than a single case study.\nLimitation: response bias — those who respond may differ systematically from those who do not.\nLimitation: data can be relatively superficial compared to interviews or observation.`}
+]},
+
+'r-socio-legal':{title:'Socio-Legal / Empirical Method',category:'Methods of Legal Research',
+description:'An interdisciplinary approach that studies the interaction between law and society, borrowing tools from the social sciences to examine how law is implemented, experienced and its actual effects.',
+related:['r-doctrinal-nondoctrinal','r-survey','r-observation'],
+sections:[
+{heading:'Meaning & Focus',content:`Moves beyond "law in books" to study "law in action" — how legal rules actually function once they leave the statute book.\nFocus areas include access to justice, implementation gaps, behaviour of legal actors (police, judges, lawyers), and the lived experience of litigants.\nBorrows methodological rigour from sociology, political science, and economics.`},
+{heading:'Methods Commonly Used',content:`Surveys of litigants, lawyers, or the general public.\nStructured or unstructured interviews with legal actors.\nDirect observation of courts, police stations, or administrative bodies.\nCase studies of institutions and statistical analysis of official data.`},
+{heading:'Value to Legal Scholarship',content:`Bridges the gap between doctrinal statements of law and their real-world impact.\nProduces evidence-based findings that can directly inform policy and legislative reform.\nExposes implementation failures that purely textual analysis would miss.`},
+{heading:'Challenges',content:`Access to courts, police stations, or prisons for observation or interviews is often restricted.\nSignificantly more time- and resource-intensive than doctrinal research.\nRequires interdisciplinary training in research design, sampling and statistics that many law researchers must acquire specifically for the project.`}
+]},
+
+'r-qualitative':{title:'Qualitative Research Approach',category:'Qualitative & Quantitative Approaches',
+description:'An approach focused on understanding meaning, context and lived experience, using non-numerical data gathered through flexible, in-depth methods.',
+related:['r-interviews-fg','r-content-thematic','r-mixed'],
+sections:[
+{heading:'Meaning & Features',content:`Inductive — builds understanding from specific observations toward broader insight, rather than testing a fixed hypothesis from the outset.\nConducted in natural settings, with attention to context.\nUses relatively small samples but gathers rich, detailed data from each.\nDesign remains flexible and can evolve as the study proceeds.`},
+{heading:'Common Methods',content:`In-depth interviews and focus group discussions.\nCase studies of individuals, institutions, or events.\nEthnographic observation over an extended period.\nAnalysis of documents, judgments, or media texts.`},
+{heading:'Application in Legal Research',content:`Understanding litigants\' lived experience of the justice system.\nExploring judicial reasoning patterns through close reading of opinions.\nStudying legal culture within a particular court, bar, or community.`},
+{heading:'Analysis Techniques',content:`Thematic coding to identify recurring patterns across interview transcripts.\nNarrative analysis of how respondents construct and tell their story.\nGrounded theory — building theory directly and inductively from the data itself.`}
+]},
+
+'r-quantitative':{title:'Quantitative Research Approach',category:'Qualitative & Quantitative Approaches',
+description:'An approach relying on numerical data and statistical analysis to test hypotheses and establish patterns that can be generalised to a wider population.',
+related:['r-statistical','r-hypothesis','r-survey'],
+sections:[
+{heading:'Meaning & Features',content:`Deductive — starts from a theory or hypothesis and tests it against data.\nUses structured instruments (closed-ended questionnaires, official statistics) for consistency.\nRelies on larger sample sizes to support statistical generalisation.\nAims for objective, replicable measurement.`},
+{heading:'Common Methods',content:`Large-scale surveys with standardised, closed-ended questions.\nAnalysis of secondary statistical data — court disposal rates, crime statistics, conviction rates.\nExperimental or quasi-experimental designs, occasionally used in behavioural-law research.`},
+{heading:'Application in Legal Research',content:`Studying case disposal and pendency rates across different courts.\nAnalysing conviction rate trends under a particular statute over time.\nMeasuring correlation between legal aid access and case outcomes.`},
+{heading:'Analysis',content:`Descriptive statistics summarise the dataset (means, frequencies, percentages).\nInferential statistics (chi-square, regression, correlation) test whether observed patterns are statistically significant.\nResults are typically presented through tables, graphs and charts for clarity.`}
+]},
+
+'r-mixed':{title:'Mixed Methods Research',category:'Qualitative & Quantitative Approaches',
+description:'A design that deliberately combines qualitative and quantitative approaches within a single study to achieve both depth and breadth of understanding.',
+related:['r-qualitative','r-quantitative','r-doctrinal-nondoctrinal'],
+sections:[
+{heading:'Rationale',content:`Triangulation — using two methods to cross-check and validate the same finding.\nComplementarity — one method\'s weakness is offset by the other method\'s strength.\nBreadth plus depth — a survey establishes a pattern; interviews explain why the pattern exists.`},
+{heading:'Common Designs',content:`Sequential explanatory — quantitative data collected and analysed first, then qualitative data explains unexpected results.\nSequential exploratory — qualitative exploration first shapes a quantitative instrument used afterward.\nConvergent parallel — both types of data are collected around the same time and compared for convergence or divergence.\nEmbedded design — one data type plays a supporting role within a study primarily driven by the other.`},
+{heading:'Application in Legal Research',content:`A dissertation might combine a doctrinal chapter on the law "as written" with an empirical chapter surveying its "law in action" effect.\nExample: a survey showing high case pendency in commercial courts (quantitative), followed by judge interviews explaining the underlying causes (qualitative).`},
+{heading:'Challenges',content:`More resource- and time-intensive than a single-method study.\nRequires competence in both qualitative and quantitative techniques.\nIntegrating and presenting two different types of findings coherently can be difficult.`}
+]},
+
+'r-interviews-fg':{title:'Interviews & Focus Groups',category:'Qualitative & Quantitative Approaches',
+description:'Two closely related qualitative tools for gathering rich, first-hand accounts of experience and opinion — one individual, one group-based.',
+related:['r-interview','r-qualitative','r-content-thematic'],
+sections:[
+{heading:'Designing an Interview Guide',content:`List broad, open-ended themes rather than rigid, closed questions.\nOrder themes logically, but remain flexible to follow the respondent\'s lead.\nInclude a few "probe" follow-up questions to dig deeper into interesting answers.`},
+{heading:'Focus Group Facilitation',content:`Typically 6 to 10 participants, guided by a neutral moderator.\nWell suited to exploring shared perceptions of a legal issue — for example, public reaction to a new consumer protection law.\nGroup dynamics can surface disagreement and consensus that individual interviews might miss.`},
+{heading:'Recording & Transcription',content:`Audio or video recording (with consent) is essential for accurate later analysis.\nVerbatim transcription preserves nuance, tone and exact wording for thematic coding.\nField notes taken during the session capture non-verbal cues the recording may miss.`},
+{heading:'Ethical Considerations',content:`Informed consent must be obtained before recording or including any data.\nConfidentiality and anonymisation of sensitive responses (especially in studies involving victims or undertrials).\nRespondents must be free to decline questions or withdraw at any stage.`}
+]},
+
+'r-content-thematic':{title:'Content & Thematic Analysis',category:'Qualitative & Quantitative Approaches',
+description:'Two related techniques for systematically identifying patterns and meaning within text — judgments, statutes, interview transcripts, or media coverage.',
+related:['r-qualitative','r-interviews-fg','r-data-processing'],
+sections:[
+{heading:'Content Analysis',content:`Systematically categorises and, where useful, counts the frequency of themes or terms within a body of text.\nCan be quantitative (counting occurrences) or qualitative (interpreting underlying meaning).\nUseful for analysing a large volume of judgments, legislative debates, or media coverage of a legal issue.`},
+{heading:'Thematic Analysis',content:`A flexible, widely used method for identifying, analysing and reporting patterns (themes) within qualitative data.\nSix-phase process: familiarisation with data, initial coding, searching for themes, reviewing themes, defining and naming themes, and writing up.\nWell suited to interview transcripts, focus group data, and open-ended survey responses.`},
+{heading:'Application in Legal Research',content:`Analysing judicial reasoning patterns across a set of judgments on the same statutory provision.\nExamining themes in parliamentary debate transcripts around a controversial Bill.\nCoding open-ended responses in a litigant satisfaction survey.`},
+{heading:'Tools',content:`Manual coding using highlighters, margin notes, or spreadsheets for smaller datasets.\nQualitative data analysis software such as NVivo or Atlas.ti for larger volumes of text.`}
+]},
+
+'r-primary-sources':{title:'Primary Legal Sources',category:'Sources of Legal Research',
+description:'The original, authoritative statements of the law itself, as opposed to commentary about the law.',
+related:['r-primary-secondary','r-secondary-sources','r-online-databases'],
+sections:[
+{heading:'What Counts as a Primary Source',content:`The Constitution — the foundational, supreme source of law in the jurisdiction.\nStatutes and Bare Acts passed by the legislature.\nDelegated/subordinate legislation — rules, regulations, notifications, and byelaws.\nCase law — judgments of courts and tribunals that interpret and apply the law.\nTreaties and international conventions, where applicable.\nOrdinances promulgated by the executive in the legislature\'s absence.`},
+{heading:'Hierarchy of Primary Sources',content:`Constitution — supreme law; all other law must be consistent with it.\nStatutes enacted by a competent legislature.\nDelegated legislation made under statutory authority.\nCase law, which interprets and fills gaps in the above but does not itself override a valid statute.`},
+{heading:'How to Use Primary Sources',content:`Always verify the latest amended version of a statute — earlier print sources may be outdated.\nCheck whether a case has been overruled, distinguished, or affirmed on appeal.\nCite primary sources directly rather than relying on a secondary summary for the operative legal proposition.`}
+]},
+
+'r-secondary-sources':{title:'Secondary Legal Sources',category:'Sources of Legal Research',
+description:'Materials that explain, comment upon, or analyse primary law, without themselves being an authoritative statement of the law.',
+related:['r-primary-sources','r-online-databases','w-article-writing'],
+sections:[
+{heading:'Types of Secondary Sources',content:`Textbooks and commentaries by leading scholars and practitioners.\nLaw journal articles, case comments, and notes.\nLegal encyclopaedias — e.g., Halsbury\'s Laws of England/India, Corpus Juris Secundum.\nDigests that summarise and index case law by subject.\nGovernment and Law Commission of India reports.`},
+{heading:'Uses of Secondary Sources',content:`Provide context and background before diving into primary sources.\nOffer leads — footnotes and citations pointing toward the relevant primary material.\nOffer persuasive (not binding) analysis that can support an argument.\nHelp identify scholarly consensus, controversy, or gaps in existing literature.`},
+{heading:'Caution in Use',content:`Secondary sources are not binding authority — courts are not obliged to follow a textbook\'s view.\nAlways verify a secondary source\'s claim against the actual primary text before relying on it.\nDate and edition matter — an outdated commentary may not reflect recent amendments.`}
+]},
+
+'r-online-databases':{title:'Online Legal Databases & Research Tools',category:'Sources of Legal Research',
+description:'Digital platforms that make primary and secondary legal material searchable, current, and cross-referenced — now the backbone of practical legal research.',
+related:['r-primary-sources','r-secondary-sources','r-legislative-history'],
+sections:[
+{heading:'Indian Databases',content:`SCC Online — widely used commercial database of Indian case law and commentary.\nManupatra — comprehensive Indian case law, statutes, and journals.\nAIR (All India Reporter) — one of the oldest Indian law report series, also available online.\nIndian Kanoon — free, searchable repository of Indian judgments.\ne-Courts and National Judicial Data Grid (NJDG) — official case status and pendency data.\nLiveLaw and Bar & Bench — legal news and case commentary.`},
+{heading:'International Databases',content:`Westlaw and LexisNexis — leading global legal databases with extensive case law and secondary material.\nHeinOnline — extensive archive of law journals and historical legal materials.\nJSTOR and SSRN — academic articles and working papers across disciplines, including law.\nGoogle Scholar — free access to case law and academic citations, useful for a first-pass search.`},
+{heading:'Effective Search Techniques',content:`Use Boolean operators (AND, OR, NOT) to narrow or broaden a search precisely.\nUse citation search when you already know a case name or citation, to find citing/cited cases.\nUse a citator tool to check whether a case is still good law — has it been overruled, distinguished, or affirmed?\nSearch by subject/keyword when exploring a new area, then refine using filters (court, date, bench strength).`},
+{heading:'Legislative Tracking',content:`PRS Legislative Research — tracks Indian Bills, debates and committee reports in accessible form.\nOfficial Gazette of India — publishes enacted statutes, notifications and rules.\nParliament\'s own website — publishes Bill texts, Standing Committee reports and debate transcripts.`}
+]},
+
+'r-legislative-history':{title:'Legislative History Research',category:'Sources of Legal Research',
+description:'Tracing the documents and process behind a statute\'s enactment to uncover the legislature\'s intent and the mischief it was meant to address.',
+related:['r-historical','r-online-databases','r-doctrinal-method'],
+sections:[
+{heading:'Meaning & Purpose',content:`Legislative history research reconstructs how a Bill became law, and why particular provisions were framed as they were.\nUsed as an aid to statutory interpretation — particularly under the mischief rule and purposive interpretation.\nHelps explain later amendments by showing what problem an earlier version failed to solve.`},
+{heading:'Key Sources',content:`The Bill as originally introduced, and any subsequent amended versions.\nThe Statement of Objects and Reasons accompanying the Bill.\nParliamentary debates in the Lok Sabha and Rajya Sabha (or the relevant state legislature).\nReports of Select Committees or Standing Committees examining the Bill.\nRelevant Law Commission of India reports that may have prompted the legislation.`},
+{heading:'Process of Research',content:`Identify the Bill number and year corresponding to the statute in question.\nTrace its passage through introduction, committee reference, debate, and passage in both houses.\nCompile the relevant debate excerpts, committee recommendations, and any dissent notes.\nCross-reference with any later amending Acts to see how legislative intent evolved.`}
+]},
+
+'r-proposal':{title:'Research Proposal / Synopsis Writing',category:'Report Writing & Research Ethics',
+description:'The formal blueprint submitted for approval before an LLM dissertation or PhD thesis begins, setting out what will be studied and how.',
+related:['r-problem-design','r-thesis','r-hypothesis'],
+sections:[
+{heading:'Purpose',content:`Convinces the research committee that the topic is significant, feasible, and adequately planned before work begins.\nActs as a contract of sorts between researcher and supervisor/university on the scope of the study.\nForms the skeleton that the final thesis will later flesh out.`},
+{heading:'Standard Components',content:`Title — precise and reflective of the actual scope of study.\nIntroduction/background — situates the problem within the broader field.\nStatement of the problem — the specific question or gap being addressed.\nReview of literature — surveys existing work and identifies the gap the study will fill.\nObjectives — the specific goals the research intends to achieve.\nHypothesis or research questions — the propositions to be tested or explored.\nResearch methodology — doctrinal, empirical, or mixed, with justification.\nTentative chapterisation scheme.\nTentative bibliography.\nProposed time schedule.`},
+{heading:'Practical Tips',content:`Keep the problem statement narrow and specific — broad topics rarely survive committee scrutiny.\nThe literature review should clearly show what is missing in existing scholarship, not just summarise it.\nBe realistic about time and access constraints when proposing an empirical component.`}
+]},
+
+'r-thesis':{title:'Thesis / Dissertation Structure',category:'Report Writing & Research Ethics',
+description:'The standard chapter-by-chapter architecture expected of an LLM dissertation or doctoral thesis in law.',
+related:['r-proposal','w-thesis-writing','r-footnotes'],
+sections:[
+{heading:'Front Matter',content:`Title page, certificate of originality, and declaration by the candidate.\nAcknowledgment.\nTable of contents.\nList of abbreviations, table of cases, and table of statutes.`},
+{heading:'Standard Chapters',content:`Chapter 1 — Introduction: background, statement of problem, objectives, hypothesis/research questions, methodology, and chapterisation scheme.\nChapter 2 — Review of Literature: critical survey of existing scholarship, identifying the gap the thesis addresses.\nChapter 3 onward — Substantive/Analytical Chapters: the doctrinal and/or empirical analysis that forms the heart of the thesis.\nPenultimate Chapter — Findings & Suggestions: presents what the research established and what reforms follow.\nFinal Chapter — Conclusion: ties the argument together and restates the contribution of the study.`},
+{heading:'Back Matter',content:`Bibliography, organised by category — books, articles, cases, statutes, reports, websites.\nAnnexures — questionnaires used, raw data tables, or other supporting material.`},
+{heading:'Writing Tips',content:`Maintain a clear logical thread — each chapter should visibly build on the one before it.\nUse a single, consistent citation style throughout (see Citation Styles).\nAvoid purely descriptive chapters; every chapter should advance an analytical argument.`}
+]},
+
+'r-footnotes':{title:'Footnotes, Endnotes & Bibliography',category:'Report Writing & Research Ethics',
+description:'The apparatus of citation that supports every claim in legal academic writing and allows a reader to verify or trace a source.',
+related:['r-citation-styles','r-thesis','r-plagiarism'],
+sections:[
+{heading:'Footnotes',content:`Citations and explanatory notes placed at the bottom of the same page, the dominant convention in legal academic writing.\nUsed not just for citation but also for brief tangential explanation that would disrupt the flow of the main text.\nNumbered sequentially, typically restarting or continuing per chapter as the style guide requires.`},
+{heading:'Endnotes vs Footnotes',content:`Endnotes collect all notes at the end of a chapter or the whole document, rather than at the foot of each page.\nFootnotes are generally preferred in legal writing because they allow the reader to check a source without flipping pages.`},
+{heading:'Bibliography',content:`A comprehensive list of every source actually consulted, arranged by category: Books, Articles, Cases, Statutes, Reports, Websites.\nWithin each category, entries are usually arranged alphabetically by author surname.\nA bibliography differs from footnotes in scope — it lists all sources consulted, not just those directly cited.`},
+{heading:'Table of Cases & Statutes',content:`Legal theses conventionally include a separate Table of Cases (alphabetical, with citation) and Table of Statutes at the front of the document.\nThis allows a reader to quickly locate every point in the thesis where a specific case or provision is discussed.`}
+]},
+
+'r-citation-styles':{title:'Citation Styles: Bluebook, ILI, OSCOLA',category:'Report Writing & Research Ethics',
+description:'The major formal systems that standardise how legal sources are cited, ensuring consistency and enabling verification across scholarly work.',
+related:['r-footnotes','w-citation','w-drafting-principles'],
+sections:[
+{heading:'The Bluebook',content:`Originating in the US, but widely used internationally including in many Indian law journals and universities.\nProvides detailed, precise rules for citing cases, statutes, books, and journal articles.\nUses specific abbreviations for reporters, courts and jurisdictions that must be applied consistently.`},
+{heading:'ILI (Indian Law Institute) Style',content:`A citation style commonly prescribed by Indian universities for LLM and PhD theses.\nBroadly similar in spirit to the Bluebook but adapted to Indian reporters (SCC, AIR, All ER, etc.) and conventions.\nUniversities often issue their own detailed style manual based on, or closely resembling, the ILI approach — always check the specific institution\'s requirement.`},
+{heading:'OSCOLA',content:`The Oxford University Standard for Citation of Legal Authorities, widely used in the UK and much of the Commonwealth.\nEmphasises footnote citation with a separate bibliography, and has specific conventions for cases, legislation, and secondary sources.`},
+{heading:'Key Elements of a Case Citation',content:`Party names (e.g., Kesavananda Bharati v State of Kerala).\nYear of decision or reporting.\nVolume number of the law report.\nAbbreviated name of the reporter (e.g., SCC, AIR).\nPage or citation number, and the deciding court where relevant.`},
+{heading:'Practical Advice',content:`Pick one style as required by your university or target journal, and apply it with total consistency throughout the document.\nInconsistent citation is one of the most common — and most easily avoidable — defects examiners flag in LLM dissertations.`}
+]},
+
+'r-plagiarism':{title:'Plagiarism & Research Ethics',category:'Report Writing & Research Ethics',
+description:'The rules of academic integrity that govern honest attribution, fair conduct, and responsible reporting throughout the research process.',
+related:['r-citation-styles','r-footnotes','r-thesis'],
+sections:[
+{heading:'Meaning of Plagiarism',content:`Presenting another person\'s words, ideas, data, or structure as one\'s own without proper attribution.\nIncludes direct copying, close paraphrasing without citation, and even self-plagiarism (reusing one\'s own previously submitted work without disclosure).`},
+{heading:'UGC Regulations in India',content:`The UGC (Promotion of Academic Integrity and Prevention of Plagiarism in Higher Educational Institutions) Regulations, 2018 prescribe similarity-index thresholds for theses and require use of plagiarism-detection software before submission.\nMost universities mandate a specific software (e.g., Turnitin, Urkund/Ouriginal) report be annexed to the final thesis submission.\nPenalties escalate with the degree of similarity found, ranging from revision requirements to more serious academic sanctions.`},
+{heading:'Broader Research Ethics',content:`Obtaining informed consent from human respondents before interviews, surveys or observation.\nMaintaining confidentiality and anonymising sensitive data, especially involving vulnerable groups.\nAvoiding fabrication or falsification of data and honestly reporting findings, even inconvenient ones.\nDisclosing funding sources and any potential conflicts of interest.\nProperly acknowledging supervisors, collaborators, and any research assistance received.`},
+{heading:'Consequences of Breach',content:`Academic penalties ranging from mandatory revision to withholding or revoking a degree.\nRetraction of published articles found to involve plagiarism or data fabrication.\nLasting reputational damage to the researcher and, in serious cases, to the supervising institution.`}
+]},
+
+'w-meaning-importance':{title:'Meaning, Importance & Kinds of Legal Writing',category:'Foundations of Legal Writing',
+description:'Legal writing is specialised written communication that conveys legal analysis, argument, advice or transactional terms with precision appropriate to its audience and purpose.',
+related:['w-language-style','w-legal-reasoning','w-drafting-principles'],
+sections:[
+{heading:'Meaning',content:`Legal writing is writing that applies legal principles to facts for a defined purpose — to advise, persuade, record, or transact.\nUnlike general writing, it demands precision because ambiguity in a contract clause or a pleading can have direct, enforceable consequences.`},
+{heading:'Importance',content:`Forms the core working output of legal practice — pleadings, contracts, opinions, and judgments are all legal writing.\nPoor legal writing can lose a case, void a transaction, or expose a client to unintended liability.\nStrong legal writing is often what actually persuades a court or closes a negotiation, more than the underlying legal argument alone.`},
+{heading:'Kinds of Legal Writing',content:`Academic legal writing — articles, case comments, theses, aimed at scholarly contribution.\nTransactional/drafting writing — contracts, deeds, wills, aimed at creating enforceable rights and obligations.\nLitigation writing — pleadings, applications, and briefs, aimed at advancing a claim or defence before a forum.\nJudicial writing — judgments and orders, aimed at recording and justifying a decision.\nGeneral legal correspondence — client letters, legal notices, and opinions.`}
+]},
+
+'w-language-style':{title:'Legal Language & Style',category:'Foundations of Legal Writing',
+description:'The distinctive vocabulary, tone and conventions of legal English, and the modern movement toward simplifying it without losing precision.',
+related:['w-clarity','w-meaning-importance','w-drafting-principles'],
+sections:[
+{heading:'Traditional Characteristics',content:`High formality and a precise, technical vocabulary.\nHeavy use of Latin maxims and phrases (e.g., audi alteram partem, res judicata, ignorantia juris non excusat).\nArchaic connector words — "aforesaid," "hereinafter," "whereas," "witnesseth" — inherited from centuries-old drafting conventions.\nLong, layered sentences with multiple subordinate clauses, historically intended to close every possible loophole.`},
+{heading:'Common Latin Maxims Worth Knowing',content:`Audi alteram partem — hear the other side; a pillar of natural justice.\nRes judicata — a matter already judged cannot be re-litigated.\nIgnorantia juris non excusat — ignorance of the law is no excuse.\nCaveat emptor — let the buyer beware.\nActus non facit reum nisi mens sit rea — an act does not make a person guilty unless there is a guilty mind.`},
+{heading:'The Plain Language Movement',content:`A modern, global push (echoed by initiatives like the Plain English Campaign) toward clearer, more accessible legal writing.\nParticularly influential in consumer contracts, insurance policies, and public-facing government forms.\nArgues that clarity and legal precision are not opposites — a well-drafted plain sentence can be as enforceable as a dense one.`},
+{heading:'Style Choices',content:`Prefer active voice for clarity, reserving passive voice for occasions where the actor is deliberately de-emphasised.\nUse defined terms consistently — once a term is defined, never substitute a synonym for it later in the document.\nBalance tradition and accessibility according to audience — a client letter should read very differently from a statute.`}
+]},
+
+'w-legal-reasoning':{title:'Legal Reasoning: IRAC / CREAC',category:'Foundations of Legal Writing',
+description:'The standard analytical frameworks used to structure legal analysis clearly, whether in an exam answer, a memo, a case comment, or a judgment.',
+related:['w-logic-argument','w-legal-opinion','w-case-comment'],
+sections:[
+{heading:'IRAC',content:`Issue — precisely state the legal question to be resolved.\nRule — state the applicable legal rule, drawn from statute or precedent.\nApplication — apply the rule to the specific facts at hand, reasoning through how it fits (or does not).\nConclusion — state the answer that follows from the application.\nIRAC works well for objective, exploratory legal analysis such as memos and exam answers.`},
+{heading:'CREAC',content:`Conclusion — state the answer up front, before explaining the reasoning.\nRule — state the governing legal rule.\nExplanation — explain the rule in more depth, often through supporting case law.\nApplication — apply the rule (and its explanation) to the present facts.\nConclusion — restate the conclusion, now fully supported.\nCREAC is preferred in persuasive writing (briefs, opinions to a client) because a busy reader gets the answer immediately.`},
+{heading:'Other Variants',content:`TREAT — Thesis, Rule, Explanation, Application, Thesis (restated) — a further persuasive variant.\nSome practitioners simply adapt IRAC/CREAC to the specific document, but the underlying logic — state the question, state the rule, apply it, conclude — remains constant.`},
+{heading:'Worked Example',content:`Issue: Does an oral agreement to sell immovable property create an enforceable right?\nRule: Under Section 54 of the Transfer of Property Act, a sale of immovable property valued above a stated threshold must be by a registered instrument.\nApplication: Since the agreement here was purely oral and the property exceeds the statutory threshold, it does not satisfy the requirement of registration.\nConclusion: The oral agreement, standing alone, cannot create an enforceable transfer of ownership, though it may support a claim for specific performance in limited circumstances.`}
+]},
+
+'w-logic-argument':{title:'Logic & Argumentation in Law',category:'Foundations of Legal Writing',
+description:'The patterns of reasoning — deductive, inductive and analogical — that underlie every piece of legal analysis and argument.',
+related:['w-legal-reasoning','w-persuasion','w-case-comment'],
+sections:[
+{heading:'Deductive Reasoning',content:`Applies a general rule to specific facts to reach a certain conclusion — the classic legal syllogism.\nMajor premise: the rule of law. Minor premise: the facts of the case. Conclusion: the rule\'s application to those facts.\nMost statutory interpretation arguments follow this deductive structure.`},
+{heading:'Inductive Reasoning',content:`Draws a general principle from a pattern observed across several specific cases.\nUsed when synthesising a line of precedent into a broader rule not explicitly stated in any single judgment.`},
+{heading:'Analogical Reasoning',content:`Compares the facts of a precedent case to the facts of the present case to argue the same rule should (or should not) apply.\nCentral to common law reasoning — a lawyer argues either that the present facts are "on all fours" with a favourable precedent, or meaningfully distinguishable from an unfavourable one.`},
+{heading:'Logical Fallacies to Avoid',content:`Circular reasoning — assuming the conclusion within the premise itself.\nFalse analogy — comparing cases that differ in a legally material respect.\nHasty generalisation — drawing a broad rule from too few or unrepresentative cases.\nNon sequitur — a conclusion that does not actually follow from the stated premises.`}
+]},
+
+'w-case-comment':{title:'Case Comment / Case Note Writing',category:'Academic & Scholarly Legal Writing',
+description:'A short, critical academic piece analysing a specific judicial decision — its facts, reasoning, and broader significance.',
+related:['w-legal-reasoning','w-article-writing','r-case-study'],
+sections:[
+{heading:'Purpose',content:`Tests a judgment\'s internal consistency and its fit with existing precedent.\nContributes to academic discourse on judicial trends in a particular area of law.\nOften the first genre of scholarly legal writing an LLM student is asked to produce.`},
+{heading:'Standard Structure',content:`Citation of the case, court, and date of decision.\nStatement of material facts, kept concise and focused on what is legally relevant.\nIssues framed by the court.\nSummary of the judgment/holding, including majority, concurring, and dissenting opinions if any.\nIdentification of the ratio decidendi as distinct from obiter dicta.\nCritical analysis/comment — the heart of the piece, evaluating the reasoning.\nConclusion, noting wider implications or unresolved questions.`},
+{heading:'Writing Tips',content:`Do not merely summarise the judgment — a case comment must critically engage with its reasoning.\nCarefully separate the binding ratio from mere obiter remarks.\nEngage with any dissenting opinion; it often reveals the strongest counter-argument.\nDiscuss the decision\'s consistency (or inconsistency) with prior precedent and its likely future impact.`}
+]},
+
+'w-article-writing':{title:'Article & Research Paper Writing',category:'Academic & Scholarly Legal Writing',
+description:'The structured, sustained scholarly writing that presents original legal analysis or research for publication in a law journal.',
+related:['w-case-comment','w-thesis-writing','r-proposal'],
+sections:[
+{heading:'Standard Structure',content:`Title — precise and reflective of the argument, not just the general subject.\nAbstract and keywords — a concise summary allowing readers to judge relevance quickly.\nIntroduction — states the problem, its significance, and the article\'s central argument (thesis statement).\nReview of literature — situates the article within existing scholarship and shows the gap it fills.\nMain body — divided into clearly headed sections building the analysis step by step.\nConclusion and suggestions — restates the contribution and, where relevant, proposes reform.\nReferences/bibliography in the required citation style.`},
+{heading:'Writing the Abstract',content:`Typically 150–250 words summarising the problem, method, and key findings or argument.\nShould be readable as a stand-alone summary — many readers decide whether to read further based on the abstract alone.`},
+{heading:'Choosing a Journal',content:`Consider peer-reviewed versus non-peer-reviewed status — peer review generally signals greater scholarly rigour.\nIn India, check whether the journal is UGC-CARE listed, which matters for academic recognition.\nConsider a journal\'s subject focus, past issues and citation impact before submission.`},
+{heading:'Publication Process',content:`Submission according to the journal\'s specific formatting and citation guidelines.\nPeer review — reviewers assess originality, rigour, and contribution.\nRevision based on reviewer comments, often across more than one round.\nFinal acceptance, copy-editing, and publication.`}
+]},
+
+'w-moot-memorial':{title:'Moot Court Memorial Writing',category:'Academic & Scholarly Legal Writing',
+description:'A formal written submission prepared for a moot court competition, presenting one side\'s best possible legal arguments on a hypothetical problem.',
+related:['w-persuasion','w-legal-reasoning','w-citation'],
+sections:[
+{heading:'Purpose & Nature',content:`Simulates a real written submission to a court, requiring both rigorous research and persuasive advocacy.\nUnlike an academic article, a memorial is one-sided by design — it must argue the assigned party\'s position as strongly as the law permits.`},
+{heading:'Standard Structure',content:`Cover page with team code, and index/table of contents.\nStatement of jurisdiction — the basis on which the moot court is competent to hear the matter.\nStatement of facts — a clear, neutral-sounding but strategically framed account of the hypothetical facts.\nIssues raised — the precise legal questions the memorial will address.\nSummary of arguments — a condensed preview of the full argument.\nArguments advanced — the main body, organised issue by issue, each following a reasoning framework such as CREAC.\nPrayer — the specific relief sought from the court.`},
+{heading:'Style & Citation',content:`Formal, persuasive, and properly cited throughout to cases, statutes, and, where relevant, international instruments.\nEvery factual and legal assertion should be supported by a citation or record reference.`},
+{heading:'Skills Developed',content:`Deep legal research across primary and secondary sources under time pressure.\nStructured persuasive drafting within strict word or page limits.\nOral argumentation skills that build directly on the written memorial.`}
+]},
+
+'w-thesis-writing':{title:'Legal Thesis / Dissertation Writing',category:'Academic & Scholarly Legal Writing',
+description:'The craft of building a sustained, original scholarly argument across the many chapters of an LLM or doctoral thesis.',
+related:['r-thesis','r-proposal','w-article-writing'],
+sections:[
+{heading:'Beyond Structure — The Writing Craft',content:`A thesis is not simply a longer article — it must sustain one coherent, original argument (the "thesis statement") across every chapter.\nEach chapter should visibly advance that overall argument, not merely describe a slice of the topic in isolation.`},
+{heading:'Synthesising Rather Than Summarising',content:`Weak dissertations describe what each source says, one after another.\nStrong dissertations synthesise sources — comparing, contrasting, and building the researcher\'s own position out of the tension between them.\nDirect quotation should be used sparingly, mainly where the exact wording itself is significant (e.g., a statutory phrase under interpretation).`},
+{heading:'Maintaining Scholarly Tone & Flow',content:`Maintain a consistent, formal academic register throughout.\nUse clear transitional sentences at the start and end of chapters to show how the argument is progressing.\nAvoid sudden shifts in citation style, terminology, or level of formality between chapters.`},
+{heading:'Common Pitfalls',content:`Purely descriptive writing that restates the law without offering independent analysis.\nInconsistent or incomplete citation, especially across chapters written at different times.\nLack of a clearly stated original contribution — examiners specifically look for what is new in the work.\nOver-reliance on secondary commentary instead of engaging directly with primary sources.`}
+]},
+
+'w-drafting-principles':{title:'General Principles & Rules of Drafting',category:'General Principles of Legal Drafting',
+description:'The foundational rules that govern the drafting of any legal document, whether a contract, a deed, or a pleading.',
+related:['w-precedents','w-clarity','w-structure'],
+sections:[
+{heading:'The Golden Rules',content:`Clarity — the document should be capable of only one reasonable interpretation.\nBrevity — say what is necessary without unnecessary repetition or padding.\nPrecision — use exact terms; avoid vague words like "reasonable" or "soon" unless deliberately intended.\nCorrectness — ensure legal accuracy, proper party names, and correct statutory references.\nCoherence — the document should read as a logically connected whole, not a patchwork of clauses.`},
+{heading:'The Drafting Process',content:`Take detailed instructions from the client, verifying facts and objectives.\nUnderstand the facts thoroughly before identifying the applicable law.\nIdentify the relevant statutory framework and any mandatory formalities (e.g., registration, stamping).\nStructure the document logically before drafting sentence by sentence.\nDraft, then review critically — ideally by a second, independent reader.\nFinalise, execute, and, where required, register the document.`},
+{heading:'Common Errors to Avoid',content:`Ambiguous or undefined key terms that different parties can read differently.\nInconsistent use of defined terms — switching between synonyms for the same concept.\nMissing essential clauses (e.g., no dispute resolution clause in a commercial contract).\nIncorrect or dangling cross-references to other clauses or schedules.`},
+{heading:'Plain Language vs Traditional Legalese',content:`Modern drafting increasingly favours plain, direct language over inherited legalese, especially in consumer-facing documents.\nSome technical terms remain necessary for legal certainty — the goal is to eliminate unnecessary complexity, not all precision.`}
+]},
+
+'w-precedents':{title:'Use of Precedents in Drafting',category:'General Principles of Legal Drafting',
+description:'The practice of using pre-existing model drafts as a starting template, adapted carefully to the facts of the present matter.',
+related:['w-drafting-principles','w-contracts','w-conveyancing'],
+sections:[
+{heading:'Meaning',content:`A "precedent" in drafting means a previously used or published model document — not to be confused with judicial precedent.\nUsed as a starting skeleton that saves time and ensures standard, tested clauses are not overlooked.`},
+{heading:'Sources of Drafting Precedents',content:`Published legal drafting manuals and precedent books.\nA law firm\'s or advocate\'s own template library, built up from prior matters.\nPreviously executed documents of a similar nature and jurisdiction.`},
+{heading:'The Golden Caution',content:`"A precedent is a guide, not a straitjacket" — it must be adapted to the specific facts, parties, and law applicable to the present matter.\nBlindly copying a precedent risks including irrelevant clauses, omitting necessary ones, or importing outdated legal references.`},
+{heading:'Benefits & Risks',content:`Benefit: significant time saving and reduced risk of omitting standard, essential clauses.\nBenefit: consistency with market or judicially tested language.\nRisk: outdated statutory references or clauses inconsistent with recent legal developments.\nRisk: clauses irrelevant to the present transaction left in by oversight, creating ambiguity.`}
+]},
+
+'w-affidavits':{title:'Drafting of Affidavits',category:'General Principles of Legal Drafting',
+description:'A sworn, written statement of facts affirmed by the deponent before an authorised officer, used to place facts on record before a court or authority.',
+related:['w-drafting-principles','w-plaint','w-petitions'],
+sections:[
+{heading:'Meaning',content:`An affidavit is a written declaration of facts, sworn or affirmed by the deponent (the person making it) before a notary, oath commissioner, or other authorised officer.\nIt substitutes for oral evidence in many procedural contexts, particularly interlocutory applications.`},
+{heading:'Standard Structure',content:`Cause title identifying the court and case (or the authority, if not court-related).\nDeponent\'s full details — name, age, address, and occupation.\nNumbered paragraphs stating the facts, kept factual rather than argumentative.\nVerification clause distinguishing facts within personal knowledge from facts believed on information received.\nSignature of the deponent and attestation/jurat by the authorised officer.`},
+{heading:'Key Drafting Rules',content:`State facts within personal knowledge as such — do not blur them with belief or hearsay.\nFacts based on information received from another source must be identified as "based on information and belief," with the source disclosed where possible.\nAn affidavit must contain facts only, not legal arguments, submissions, or conclusions of law.\nEach paragraph should ideally cover one distinct fact or closely related set of facts.`},
+{heading:'Common Uses',content:`Supporting interim applications such as stay or injunction requests.\nVerifying pleadings where court rules require it.\nStand-alone sworn declarations for transactions such as property affidavits or affidavits of no objection.`}
+]},
+
+'w-legal-notices':{title:'Drafting of Legal Notices',category:'General Principles of Legal Drafting',
+description:'A formal written communication asserting a legal claim or grievance before initiating litigation, sometimes a mandatory statutory prerequisite to a suit.',
+related:['w-drafting-principles','w-plaint','w-clarity'],
+sections:[
+{heading:'Meaning & Purpose',content:`A legal notice formally puts the recipient on notice of a claim, grievance, or intended legal action.\nIt provides an opportunity for amicable resolution before the matter escalates to litigation.\nIn some contexts it is a mandatory procedural prerequisite — for instance, notice under Section 80 of the Civil Procedure Code before suing the government, or notice under Section 138 of the Negotiable Instruments Act for a bounced cheque.`},
+{heading:'Standard Structure',content:`Sender\'s and recipient\'s full details.\nA clear, chronological narration of facts giving rise to the claim.\nThe specific legal basis for the claim, referencing the relevant statute or contractual clause.\nA specific, unambiguous demand — what exactly is expected of the recipient.\nA stated time limit for compliance.\nThe consequence of non-compliance, typically an intention to pursue legal remedies.`},
+{heading:'Why It Matters',content:`Serves as documentary evidence of the sender\'s good faith and due diligence before suing.\nA well-drafted notice can itself prompt settlement, avoiding the cost and delay of litigation.\nAn improperly drafted or served notice can, in some statutory contexts, invalidate the subsequent proceeding.`}
+]},
+
+'w-plaint':{title:'Drafting of Plaint',category:'Drafting of Pleadings & Conveyancing',
+description:'The plaintiff\'s foundational pleading that formally institutes a civil suit, governed in India by Order VI and Order VII of the Code of Civil Procedure.',
+related:['w-written-statement','w-affidavits','w-petitions'],
+sections:[
+{heading:'Meaning',content:`A plaint is the written statement of claim by which a plaintiff formally institutes a civil suit before a court of competent jurisdiction.\nIt sets out the material facts giving rise to the cause of action and the relief the plaintiff seeks.`},
+{heading:'Essential Contents (Order VII CPC)',content:`Cause title — name of the court, and names, descriptions and addresses of the parties.\nFacts establishing the court\'s territorial and pecuniary jurisdiction.\nFacts constituting the cause of action, and when it arose.\nValuation of the subject matter for jurisdiction and court fee purposes.\nThe specific relief claimed from the court.\nVerification of the plaint by the plaintiff.`},
+{heading:'Key Drafting Rules (Order VI CPC)',content:`Plead facts, not the evidence by which those facts will be proved.\nPlead facts, not conclusions of law or bare legal arguments.\nEach paragraph should, as far as possible, be confined to a distinct allegation.\nMaterial facts must be stated concisely but completely — omission can be fatal to the claim later.`},
+{heading:'Common Defects to Avoid',content:`A vague or incomplete statement of the cause of action.\nMisjoinder of parties or causes of action that do not properly belong in the same suit.\nIncorrect valuation of the suit, affecting court fee and forum.\nFailure to properly verify the plaint as required by the rules.`}
+]},
+
+'w-written-statement':{title:'Drafting of Written Statement',category:'Drafting of Pleadings & Conveyancing',
+description:'The defendant\'s formal, para-wise reply to the plaint, governed in India by Order VIII of the Code of Civil Procedure.',
+related:['w-plaint','w-drafting-principles','w-petitions'],
+sections:[
+{heading:'Meaning',content:`A written statement is the defendant\'s formal answer to the plaintiff\'s plaint, responding to each allegation and raising any defences.\nIt must be filed within the statutory time limit prescribed under the applicable procedural law.`},
+{heading:'Standard Contents',content:`Preliminary objections — such as lack of jurisdiction, limitation, or non-maintainability of the suit.\nPara-wise reply to the plaint — each paragraph of the plaint must be specifically admitted, denied, or stated as not within the defendant\'s knowledge.\nAdditional facts constituting the defendant\'s own version of events.\nA counterclaim or set-off, if the defendant wishes to raise one against the plaintiff.`},
+{heading:'The Critical Rule on Denial (Order VIII Rule 5 CPC)',content:`Every allegation of fact in the plaint, if not specifically denied or stated to be not admitted, is deemed to be admitted.\nThis makes precise, paragraph-by-paragraph denial essential — a vague or evasive general denial is legally insufficient and can result in unintended admissions.\nDrafting must therefore track the plaint paragraph-by-paragraph with equal precision.`}
+]},
+
+'w-petitions':{title:'Drafting of Petitions & Applications',category:'Drafting of Pleadings & Conveyancing',
+description:'Formal written requests to a court or authority seeking a specific order, ranging from constitutional writs to routine interim applications.',
+related:['w-plaint','w-affidavits','w-persuasion'],
+sections:[
+{heading:'Common Types',content:`Writ petitions — invoking a constitutional court\'s jurisdiction under Article 32 or Article 226.\nBail applications — seeking release of an accused pending trial or appeal.\nInterim applications — such as applications for temporary injunction or stay of proceedings.\nRevision and review petitions — seeking a superior court\'s reconsideration of an order.\nApplications under special statutes — for example, under the Arbitration and Conciliation Act or consumer protection law.`},
+{heading:'Standard Structure',content:`Cause title identifying the court and the parties.\nMemo of parties with full descriptions.\nStatement of facts leading up to the application.\nGrounds — the specific legal reasons justifying the relief sought, usually numbered.\nPrayer clause — the precise order requested from the court.\nAn affidavit in support, verifying the factual assertions made in the petition.`},
+{heading:'Drafting Tips',content:`Grounds should be framed as distinct legal propositions, not a narrative repetition of the facts.\nThe prayer clause must be specific and capable of being granted exactly as worded — vague prayers invite rejection or clarificatory delay.\nUrgency, where claimed, should be justified with specific facts, not asserted in the abstract.`}
+]},
+
+'w-conveyancing':{title:'Conveyancing: Sale, Lease, Mortgage & Gift Deeds',category:'Drafting of Pleadings & Conveyancing',
+description:'The branch of legal drafting concerned with documents that transfer or create an interest in property, governed principally by the Transfer of Property Act.',
+related:['w-will','w-precedents','w-drafting-principles'],
+sections:[
+{heading:'Sale Deed',content:`Recitals establishing the seller\'s title and the history of ownership.\nStatement of consideration — the price paid and mode of payment.\nA precise description of the property, usually set out in a schedule with boundaries and survey/plot numbers.\nCovenants of title — the seller\'s assurance of good, marketable title free of encumbrances.\nClause for delivery of possession upon execution.`},
+{heading:'Lease Deed',content:`Identification of lessor and lessee, and the term (duration) of the lease.\nRent amount, payment schedule, and security deposit terms.\nCovenants covering repairs, permitted use, renewal options, and grounds for termination.\nProvisions on subletting, and the process for handing back possession on expiry.`},
+{heading:'Mortgage Deed',content:`Identifies the type of mortgage — simple mortgage, usufructuary mortgage, English mortgage, or others recognised under the Transfer of Property Act.\nStates the principal amount, rate of interest, and repayment schedule.\nIncludes a redemption clause specifying how and when the mortgagor may recover the property upon repayment.`},
+{heading:'Gift Deed',content:`Must record a voluntary transfer made without any consideration.\nRequires acceptance by the donee during the lifetime of the donor — an essential requirement under the Transfer of Property Act for the gift to be valid.\nMust be executed and, for immovable property, compulsorily registered.`},
+{heading:'Common Requirements Across Conveyancing Documents',content:`A precise schedule describing the property beyond doubt.\nCompliance with applicable stamp duty and registration requirements.\nAttestation by the required number of witnesses.\nVerification of the transferor\'s title before drafting, to avoid defects surfacing later.`}
+]},
+
+'w-will':{title:'Drafting of Wills',category:'Drafting of Pleadings & Conveyancing',
+description:'A testamentary document by which a person (the testator) directs how their property is to be distributed after death.',
+related:['w-conveyancing','w-drafting-principles','w-poa'],
+sections:[
+{heading:'Essential Elements',content:`A clear declaration by the testator that the document is intended to operate as their last will.\nA statement affirming the testator is of sound mind and acting of free will, without coercion.\nAppointment of an executor to carry out the terms of the will.\nSpecific bequests of particular property to named beneficiaries, followed by a residuary clause covering all remaining property.\nA clause expressly revoking all previous wills and codicils.\nAttestation by the number of witnesses required under the applicable succession law.`},
+{heading:'Types',content:`Privileged wills — a relaxed form of execution available to certain persons (such as those in active military service) under the Indian Succession Act.\nUnprivileged wills — the standard form requiring the usual formalities of signature and attestation.\nCodicil — a supplementary document that amends, adds to, or partially revokes an existing will without redrafting it entirely.`},
+{heading:'Drafting Tips',content:`Identify beneficiaries and bequeathed property with total clarity, avoiding any description that could apply to more than one person or asset.\nInclude contingency provisions — for example, what happens if a named beneficiary predeceases the testator.\nAppoint a guardian for any minor children, where relevant.\nKeep the will consistent with any other estate planning documents (trusts, nominations) to avoid conflicting instructions.`}
+]},
+
+'w-contracts':{title:'Drafting of Contracts & Agreements',category:'Drafting of Contracts & Commercial Documents',
+description:'The drafting of legally binding agreements between parties, grounded in the essential requirements of the Indian Contract Act, 1872.',
+related:['w-precedents','w-drafting-principles','w-legal-opinion'],
+sections:[
+{heading:'Essential Elements of a Valid Contract',content:`A valid offer and its unqualified acceptance.\nLawful consideration flowing between the parties.\nCapacity of the parties to contract.\nFree consent, uncoloured by coercion, undue influence, fraud, misrepresentation, or mistake.\nA lawful object — the contract must not be for an illegal or void purpose.`},
+{heading:'Standard Clauses',content:`Recitals — background context explaining why the parties are entering the agreement.\nDefinitions — precise meanings for key terms used repeatedly throughout the contract.\nObligations of each party, stated with clear, measurable actions and timelines.\nRepresentations and warranties — statements of fact and assurances each party relies upon.\nIndemnity clauses allocating responsibility for specified losses.\nTermination clause — grounds and process for ending the contract.\nDispute resolution clause — specifying arbitration, mediation, or litigation, and the seat/venue.\nGoverning law clause, force majeure clause, severability clause, and an entire agreement clause.`},
+{heading:'Drafting Process',content:`Take detailed instructions and understand the commercial intent behind the deal.\nNegotiate key terms with the counterparty before finalising language.\nDraft the agreement, then circulate for review and redlining.\nFinalise, execute, and complete any required stamping or registration.`},
+{heading:'Common Contract Types',content:`Service agreements and agreements for sale of goods.\nEmployment contracts and consultancy agreements.\nNon-disclosure agreements (NDAs) and memoranda of understanding (MOUs).`}
+]},
+
+'w-poa':{title:'Power of Attorney',category:'Drafting of Contracts & Commercial Documents',
+description:'A document by which one person (the principal) authorises another (the agent or attorney) to act on their behalf in specified or general matters.',
+related:['w-contracts','w-conveyancing','w-drafting-principles'],
+sections:[
+{heading:'Meaning & Types',content:`A power of attorney creates an agency relationship, giving the agent authority to act legally on the principal\'s behalf.\nGeneral Power of Attorney (GPA) — confers broad authority across a wide range of matters.\nSpecial/Specific Power of Attorney (SPA) — limits the agent\'s authority to a single, specifically described act or transaction.`},
+{heading:'Essential Contents',content:`Clear identification of the principal and the agent/attorney.\nA precise, enumerated scope of authority — the specific powers being granted.\nThe duration of the power, and the circumstances (if any) triggering automatic revocation.\nAn express revocation clause allowing the principal to withdraw the authority.\nProper execution, and notarisation or registration as required, especially for powers concerning immovable property.`},
+{heading:'Key Cautions',content:`Powers of attorney are strictly construed — an agent cannot act beyond what is expressly (or clearly necessarily implied) granted.\nMany jurisdictions require registration of a power of attorney that deals with immovable property.\nA principal should keep close oversight, since misuse of a broad general power of attorney can cause serious harm.`}
+]},
+
+'w-partnership':{title:'Partnership Deed',category:'Drafting of Contracts & Commercial Documents',
+description:'The foundational document that governs the rights, duties, and relationship between partners of a firm under the Indian Partnership Act, 1932.',
+related:['w-contracts','w-drafting-principles','r-doctrinal-method'],
+sections:[
+{heading:'Meaning & Importance',content:`A partnership deed records the terms agreed between partners establishing and operating a partnership firm.\nAlthough an oral partnership is legally possible, a written deed is essential evidence of the agreed terms and is generally required for registration of the firm.`},
+{heading:'Essential Clauses',content:`Name, nature, and principal place of business of the firm.\nCapital contribution of each partner and how further capital calls will be handled.\nProfit and loss sharing ratio among the partners.\nDuties, powers, and restrictions applicable to each partner.\nProcedure for admission, retirement, or expulsion of a partner.\nProcedure for dissolution of the firm and settlement of accounts.\nA dispute resolution mechanism for disagreements between partners.`},
+{heading:'Why a Written Deed Matters',content:`Serves as concrete evidence of agreed terms in the event of a later dispute between partners.\nRequired supporting document for registration of the firm with the Registrar of Firms.\nHelps prevent disputes by clarifying expectations on profit sharing, authority, and exit in advance.`}
+]},
+
+'w-legal-opinion':{title:'Legal Memoranda & Opinion Writing',category:'Drafting of Contracts & Commercial Documents',
+description:'Written legal advice that objectively analyses a client\'s issue and recommends a course of action, distinct from the persuasive writing used in litigation.',
+related:['w-legal-reasoning','w-clarity','r-doctrinal-nondoctrinal'],
+sections:[
+{heading:'Meaning',content:`A legal opinion or memorandum sets out the writer\'s objective assessment of a legal question, together with a recommendation.\nUnlike a court brief, it need not favour one side — its purpose is to inform the client\'s decision-making honestly.`},
+{heading:'Standard Structure',content:`Heading/re line identifying the client, matter, and date.\nStatement of facts as understood and relied upon for the opinion.\nQuestions presented — the precise legal issues being addressed.\nBrief answer — a short, direct response to each question.\nDetailed analysis, typically following an IRAC-style structure for each issue.\nConclusion and recommendation — the writer\'s clear advice on the best course of action.\nCaveats and privilege notice — noting assumptions, limitations, and confidentiality of the advice.`},
+{heading:'Tone & Ethical Duty',content:`The tone must remain objective and balanced — the writer has a duty to disclose risks and uncertainties, not only the outcome favourable to the client.\nAn opinion that hides adverse risk to please the client is a serious professional failing.`},
+{heading:'Distinguishing Opinion Writing from Advocacy',content:`An opinion is written to inform a decision; a brief is written to persuade a forum.\nAn opinion must present both favourable and unfavourable considerations; a brief may permissibly emphasise the favourable side within ethical limits.`}
+]},
+
+'w-clarity':{title:'Clarity & Plain Language',category:'Style, Citation & Revision',
+description:'The practical techniques for making legal writing precise and genuinely readable, rather than needlessly dense.',
+related:['w-language-style','w-structure','w-editing'],
+sections:[
+{heading:'Core Techniques',content:`Prefer short, direct sentences over long, multiply-qualified ones.\nUse active voice as the default — "The tenant shall pay rent," not "Rent shall be paid by the tenant."\nAvoid nominalisations that bury the action in a noun — prefer "the court decided" over "a decision was made by the court."\nState one idea per sentence, and use concrete rather than abstract language wherever possible.`},
+{heading:'The Plain Language Movement in Practice',content:`A global push, echoed in Indian consumer and insurance regulation, toward documents an ordinary reader can actually understand.\nParticularly important for consumer contracts, terms of service, and public-facing government forms.\nDoes not mean abandoning necessary technical terms — it means defining them clearly and avoiding unnecessary jargon around them.`},
+{heading:'Eliminating Ambiguity',content:`Ensure every pronoun has one, unmistakable antecedent.\nWatch for misplaced modifiers and dangling participles that create unintended meanings.\nBe explicit about scope — state clearly who and what a clause applies to, rather than leaving it to inference.`},
+{heading:'Balancing Precision and Simplicity',content:`Some legal terms of art are unavoidable because they carry precise, settled meaning — but they should be defined the first time they appear.\nThe goal is not to eliminate all technical language, but to eliminate needless complexity around it.`}
+]},
+
+'w-citation':{title:'Citation & Legal Referencing',category:'Style, Citation & Revision',
+description:'The discipline of correctly attributing legal authority within any piece of legal writing, enabling verification and demonstrating the depth of research behind an argument.',
+related:['r-citation-styles','r-footnotes','w-structure'],
+sections:[
+{heading:'Purpose of Citation',content:`Attributes an argument or proposition to its supporting authority, whether a case, statute, or scholarly source.\nAllows a reader — a judge, examiner, or peer reviewer — to independently verify the claim.\nSignals the depth and rigour of the research underlying the written work.`},
+{heading:'Elements of a Case Citation',content:`Names of the parties.\nYear of the decision or report.\nVolume number and abbreviated name of the law report.\nPage or citation number, and the deciding court.`},
+{heading:'Elements of a Statute Citation',content:`The short title of the Act.\nThe year of enactment.\nThe specific section, sub-section, or schedule being referred to.`},
+{heading:'Signal Words',content:`See — the cited source directly supports the proposition.\nSee also — the source provides additional, related support.\nCf. — the source supports an analogous, but not identical, proposition.\nBut see — the source states a contrary view worth noting.\nAccord — indicates that additional authorities are in agreement with the one already cited.`},
+{heading:'Consistency',content:`Whichever citation system is chosen — Bluebook, ILI style, or OSCOLA — it must be applied uniformly throughout the entire document.\nMixed or inconsistent citation formats are one of the most common, and most easily fixed, defects flagged in academic and professional legal writing.`}
+]},
+
+'w-structure':{title:'Structure & Organization',category:'Style, Citation & Revision',
+description:'The macro and micro organisation of a legal document — how sections, paragraphs, and sentences are arranged so the reader can follow the argument or terms without confusion.',
+related:['w-clarity','w-legal-reasoning','w-drafting-principles'],
+sections:[
+{heading:'Macro-Structure',content:`Divide the document into logical parts, sections, and headings appropriate to its type — chapters for a thesis, issue-based sections for a brief, clause groups for a contract.\nFor persuasive or analytical writing, organise around legal issues rather than chronology of events.\nUse a clear introduction that maps out what the document will cover, and a conclusion that ties the threads together.`},
+{heading:'Micro-Structure — The Paragraph',content:`Each paragraph should generally develop one central idea.\nBegin with a topic sentence stating that idea, follow with supporting authority and explanation, then application to the facts, and end with a transition to the next point.`},
+{heading:'Headings & Navigation',content:`Headings and sub-headings are essential in long documents such as theses, judicial opinions, and detailed legal opinions.\nA clear heading hierarchy allows a reader to locate a specific point quickly without reading the entire document.`},
+{heading:'Numbering & Cross-Referencing in Drafting',content:`Contracts and statutes rely heavily on consistent numbering of clauses and sub-clauses for precise cross-referencing.\nEvery cross-reference should be checked for accuracy after any edit — a common source of drafting errors is a cross-reference left pointing to the wrong, renumbered clause.`}
+]},
+
+'w-persuasion':{title:'Persuasive Writing Techniques',category:'Style, Citation & Revision',
+description:'The strategies used to make a legal argument compelling to a court or decision-maker, within the ethical limits that bind every advocate.',
+related:['w-logic-argument','w-legal-reasoning','w-moot-memorial'],
+sections:[
+{heading:'Structural Techniques',content:`Place the strongest argument first or last, exploiting the reader\'s natural tendency to remember what comes at the beginning or end (primacy-recency effect).\nOrder facts to favourably frame the narrative, while remaining strictly accurate.\nUse a clear "road map" paragraph early on so the reader knows exactly where the argument is heading.`},
+{heading:'Linguistic Techniques',content:`Use active voice to foreground favourable actors and their actions.\nUse passive voice, where appropriate, to de-emphasise an unfavourable actor\'s role.\nPrefer concrete, vivid language over vague abstraction — specifics persuade more than generalities.\nVary sentence length deliberately — short sentences can land a key point with force after a longer explanatory one.`},
+{heading:'Argument Development',content:`Directly distinguish adverse precedent on its facts rather than ignoring it.\nSupport strict legal argument with policy and fairness considerations where they strengthen the case.\nAnticipate and rebut the strongest counter-argument rather than leaving it unaddressed.`},
+{heading:'Ethical Limits',content:`Candour to the tribunal is a non-negotiable professional duty — an advocate must not misstate the law.\nBinding adverse authority directly on point generally must be disclosed, even if damaging, and then distinguished or addressed.\nPersuasion must never cross into misrepresentation of fact or deliberate omission designed to mislead the court.`}
+]},
+
+'w-editing':{title:'Editing, Proofreading & Revision',category:'Style, Citation & Revision',
+description:'The layered review process that transforms a first draft of any legal document into a polished, error-free final version.',
+related:['w-clarity','w-citation','w-structure'],
+sections:[
+{heading:'Levels of Review',content:`Substantive edit — reviewing the overall structure and strength of the argument or terms; are any clauses or points missing?\nStylistic edit — improving clarity, tone, and readability without changing substantive meaning.\nCopy edit — correcting grammar, checking citation format, and ensuring consistent terminology.\nProofreading — the final pass catching typographical errors, formatting inconsistencies, and stray cross-references.`},
+{heading:'Practical Techniques',content:`Read the document aloud — awkward or overlong sentences reveal themselves more easily when heard.\nUse reverse outlining — after drafting, write down the actual topic of each paragraph to check the argument still flows logically.\nCheck every citation against the original source rather than assuming it was copied correctly the first time.\nSeek peer or supervisor feedback before final submission — a fresh reader catches what the writer has become blind to.`},
+{heading:'Common Errors Caught at Editing Stage',content:`Inconsistent use of defined terms across a long contract or thesis.\nCitation errors — wrong volume, page, or party name.\nSubject-verb agreement errors and misplaced modifiers.\nOverlong sentences that bury the main point under multiple subordinate clauses.`},
+{heading:'Tools',content:`Citation-checking tools and style guides specific to the chosen citation system.\nPlagiarism-detection software, particularly before submitting an academic thesis.\nBuilt-in grammar and consistency checkers, used as an aid — never a substitute — for careful human review.`}
+]}
+};
+
+/* ============================ RENDER LOGIC ============================ */
+let openCats = new Set([categoriesData[0].id]);
+let currentBranch = 'all';
+let currentSearch = '';
+let activeTopic = null;
+
+function toggleCat(id){
+  if(openCats.has(id)) openCats.delete(id); else openCats.add(id);
+  render();
+}
+
+function setBranch(branch){
+  currentBranch = branch;
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.branch===branch));
+  render();
+}
+
+function onSearch(){
+  currentSearch = document.getElementById('searchInput').value.trim().toLowerCase();
+  render();
+}
+
+function render(){
+  const tree = document.getElementById('tree');
+  const term = currentSearch;
+  let html = '';
+  let anyVisible = false;
+
+  categoriesData.forEach(cat=>{
+    if(currentBranch !== 'all' && cat.branch !== currentBranch) return;
+
+    const matchingNodes = cat.nodes.filter(n=>{
+      if(!term) return true;
+      return n.title.toLowerCase().includes(term) || n.desc.toLowerCase().includes(term) || n.type.toLowerCase().includes(term);
+    });
+
+    if(term && matchingNodes.length === 0) return;
+    anyVisible = true;
+
+    const isOpen = term ? true : openCats.has(cat.id);
+
+    html += `<div class="category ${isOpen ? 'open':''}" data-cat="${cat.id}">
+      <div class="cat-head" onclick="toggleCat('${cat.id}')">
+        <div class="cat-left">
+          <div class="cat-badge ${cat.branch}"></div>
+          <div>
+            <span class="cat-title">${cat.title}</span>
+            <span class="cat-count">${matchingNodes.length}</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;">
+          <button class="cat-present-btn" title="Present this category" onclick="event.stopPropagation(); startPresenterForCategory('${cat.id}')">▶</button>
+          <span class="cat-chevron">▶</span>
+        </div>
+      </div>
+      <div class="cat-body">
+        <div class="node-grid">`;
+
+    matchingNodes.forEach(n=>{
+      html += `<button class="node-card ${activeTopic===n.id ? 'active':''}" data-id="${n.id}" onclick="showDetails('${n.id}')">
+        <span class="node-type">${n.type}</span>
+        <div class="node-title">${n.title}</div>
+        <div class="node-desc">${n.desc}</div>
+      </button>`;
+    });
+
+    html += `</div></div></div>`;
+  });
+
+  if(!anyVisible){
+    html = `<div class="no-results">No topics match your search. Try a different keyword.</div>`;
+  }
+
+  tree.innerHTML = html;
+}
+
+function showDetails(id){
+  const data = db[id];
+  if(!data) return;
+  activeTopic = id;
+
+  let html = `<div class="details-inner">
+    <div class="d-head">
+      <div class="d-crumb">${data.category}</div>
+      <h2 class="d-title">${data.title}</h2>
+      <button class="d-present-btn" onclick="presentFromCurrent()">▶ Present from here</button>
+    </div>
+    <div class="d-body">
+      <div class="d-desc">${data.description}</div>`;
+
+  data.sections.forEach(s=>{
+    html += `<div class="d-section">
+      <h3>${s.heading}</h3>
+      <p>${s.content.trim().split('\\n').join('<br>')}</p>
+    </div>`;
+  });
+
+  if(data.related && data.related.length){
+    html += `<div class="related-wrap"><h3>Related Topics</h3><div class="chips">`;
+    data.related.forEach(rid=>{
+      const rd = db[rid];
+      if(rd) html += `<span class="chip" onclick="showDetails('${rid}')">${rd.title}</span>`;
+    });
+    html += `</div></div>`;
+  }
+
+  html += `</div></div>`;
+  document.getElementById('details').innerHTML = html;
+
+  document.querySelectorAll('.node-card').forEach(el=>{
+    el.classList.toggle('active', el.dataset.id === id);
+  });
+
+  if(window.innerWidth <= 980){
+    document.getElementById('details').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
+/* ============================ PRESENTER MODE ============================ */
+let presenterList = [];
+let presenterIndex = 0;
+
+function flattenAll(){
+  const all = [];
+  categoriesData.forEach(c=>c.nodes.forEach(n=>all.push(n.id)));
+  return all;
+}
+
+function startPresenterAll(){
+  openPresenter(flattenAll(), 0);
+}
+
+function startPresenterForCategory(catId){
+  const cat = categoriesData.find(c=>c.id===catId);
+  if(!cat) return;
+  openPresenter(cat.nodes.map(n=>n.id), 0);
+}
+
+function presentFromCurrent(){
+  const all = flattenAll();
+  const idx = activeTopic ? all.indexOf(activeTopic) : 0;
+  openPresenter(all, idx >= 0 ? idx : 0);
+}
+
+function openPresenter(list, startIndex){
+  if(!list || !list.length) return;
+  presenterList = list;
+  presenterIndex = startIndex || 0;
+  document.getElementById('presenter').classList.add('open');
+  document.getElementById('presenter').setAttribute('aria-hidden','false');
+  document.body.classList.add('presenter-active');
+  renderSlide();
+}
+
+function closePresenter(){
+  document.getElementById('presenter').classList.remove('open');
+  document.getElementById('presenter').setAttribute('aria-hidden','true');
+  document.body.classList.remove('presenter-active');
+}
+
+function nextSlide(){
+  if(!presenterList.length) return;
+  presenterIndex = (presenterIndex + 1) % presenterList.length;
+  renderSlide();
+}
+
+function prevSlide(){
+  if(!presenterList.length) return;
+  presenterIndex = (presenterIndex - 1 + presenterList.length) % presenterList.length;
+  renderSlide();
+}
+
+function jumpFirstSlide(){ presenterIndex = 0; renderSlide(); }
+function jumpLastSlide(){ presenterIndex = presenterList.length - 1; renderSlide(); }
+
+function jumpToRelatedInPresenter(rid){
+  let idx = presenterList.indexOf(rid);
+  if(idx === -1){
+    presenterList = flattenAll();
+    idx = presenterList.indexOf(rid);
+  }
+  if(idx >= 0){ presenterIndex = idx; renderSlide(); }
+}
+
+function renderSlide(){
+  const id = presenterList[presenterIndex];
+  const data = db[id];
+  if(!data) return;
+
+  let html = `<div class="slide">
+    <div class="slide-eyebrow">${data.category}</div>
+    <h2 class="slide-title">${data.title}</h2>
+    <div class="slide-desc">${data.description}</div>
+    <div class="slide-sections">`;
+
+  data.sections.forEach(s=>{
+    html += `<div class="slide-section">
+      <h3>${s.heading}</h3>
+      <p>${s.content.trim().split('\\n').join('<br>')}</p>
+    </div>`;
+  });
+  html += `</div>`;
+
+  if(data.related && data.related.length){
+    html += `<div class="slide-related"><h3>Related Topics</h3>`;
+    data.related.forEach(rid=>{
+      const rd = db[rid];
+      if(rd) html += `<span class="slide-chip" onclick="jumpToRelatedInPresenter('${rid}')">${rd.title}</span>`;
+    });
+    html += `</div>`;
+  }
+
+  html += `</div>`;
+
+  const stage = document.getElementById('presenterStage');
+  stage.innerHTML = html;
+
+  document.getElementById('presenterCounter').textContent = (presenterIndex + 1) + ' / ' + presenterList.length;
+  document.getElementById('presenterProgressBar').style.width = (((presenterIndex + 1) / presenterList.length) * 100) + '%';
+
+  // keep the newly opened slide focused for screen readers / immediate keyboard use
+  stage.setAttribute('tabindex','-1');
+  stage.focus({preventScroll:true});
+}
+
+/* Keyboard navigation — active only while the presenter overlay is open */
+document.addEventListener('keydown', function(e){
+  const presenterEl = document.getElementById('presenter');
+  if(!presenterEl.classList.contains('open')) return;
+
+  switch(e.key){
+    case 'ArrowRight':
+    case 'PageDown':
+    case ' ':
+    case 'Spacebar':
+      e.preventDefault();
+      nextSlide();
+      break;
+    case 'ArrowLeft':
+    case 'PageUp':
+    case 'Backspace':
+      e.preventDefault();
+      prevSlide();
+      break;
+    case 'Home':
+      e.preventDefault();
+      jumpFirstSlide();
+      break;
+    case 'End':
+      e.preventDefault();
+      jumpLastSlide();
+      break;
+    case 'Escape':
+      e.preventDefault();
+      closePresenter();
+      break;
+  }
+});
+
+/* Touch swipe navigation for mobile presenting */
+(function(){
+  const stage = document.getElementById('presenterStage');
+  let startX = 0, startY = 0;
+  stage.addEventListener('touchstart', function(e){
+    const t = e.touches[0];
+    startX = t.clientX;
+    startY = t.clientY;
+  }, {passive:true});
+  stage.addEventListener('touchend', function(e){
+    const t = e.changedTouches[0];
+    const dx = t.clientX - startX;
+    const dy = t.clientY - startY;
+    if(Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4){
+      if(dx < 0) nextSlide(); else prevSlide();
+    }
+  }, {passive:true});
+})();
+
+/* ============================ PAGE SWITCHING ============================ */
+let currentPage = 'browse';
+let expandedCats = new Set();
+
+function switchPage(page){
+  currentPage = page;
+  document.querySelectorAll('.page-nav-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.page === page);
+  });
+  document.querySelector('.app').style.display = page === 'browse' ? 'flex' : 'none';
+  document.getElementById('diagramPage').style.display = page === 'diagram' ? 'flex' : 'none';
+
+  if(page === 'diagram'){
+    renderDiagram();
+  }
+}
+
+/* ============================ FLOW DIAGRAM ============================ */
+/* Compact, collapsible two-lane flow: 2 branches -> 12 categories always visible;
+   clicking a category expands its topic chips in place. No pan/zoom needed —
+   everything works with ordinary scrolling and clicking. */
+function renderDiagram(){
+  const branches = [
+    {key:'research', label:'Research Methods', cls:'research'},
+    {key:'writing', label:'Legal Writing', cls:'writing'}
+  ];
+
+  let html = '<div class="flow-lanes">';
+
+  branches.forEach(b=>{
+    const cats = categoriesData.filter(c=>c.branch === b.key);
+    html += `<div class="flow-lane">
+      <div class="flow-lane-head ${b.cls}">${b.label}</div>
+      <div class="flow-arrow">▾</div>`;
+
+    cats.forEach((cat, i)=>{
+      const isOpen = expandedCats.has(cat.id);
+      html += `<div class="flow-cat" data-cat="${cat.id}">
+        <button class="flow-cat-box ${isOpen ? 'expanded' : ''}" onclick="toggleDiagramCat('${cat.id}')">
+          <span class="flow-cat-title">${cat.title}</span>
+          <span class="flow-cat-meta">${cat.nodes.length} topics <span class="flow-chevron">▸</span></span>
+        </button>`;
+
+      if(isOpen){
+        html += `<div class="flow-topics">`;
+        cat.nodes.forEach(n=>{
+          html += `<button class="flow-chip" onclick="event.stopPropagation(); openTopicFromDiagram('${n.id}')">${n.title}</button>`;
+        });
+        html += `<button class="flow-browse-link" onclick="event.stopPropagation(); openCategoryFromDiagram('${cat.id}')">Open full category in Browse ↗</button>`;
+        html += `</div>`;
+      }
+
+      html += `</div>`;
+      if(i < cats.length - 1){
+        html += `<div class="flow-arrow">▾</div>`;
+      }
+    });
+
+    html += `</div>`;
+  });
+
+  html += '</div>';
+  document.getElementById('flowchartContainer').innerHTML = html;
+}
+
+function toggleDiagramCat(catId){
+  if(expandedCats.has(catId)) expandedCats.delete(catId);
+  else expandedCats.add(catId);
+  renderDiagram();
+}
+
+function expandAllCats(){
+  categoriesData.forEach(c=>expandedCats.add(c.id));
+  renderDiagram();
+}
+
+function collapseAllCats(){
+  expandedCats.clear();
+  renderDiagram();
+  document.getElementById('flowWrap').scrollTop = 0;
+}
+
+function openTopicFromDiagram(id){
+  switchPage('browse');
+  const cat = categoriesData.find(c=>c.nodes.some(n=>n.id===id));
+  if(cat) openCats.add(cat.id);
+  render();
+  showDetails(id);
+  setTimeout(()=>{
+    const el = document.querySelector('.node-card[data-id="'+id+'"]');
+    if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+  }, 60);
+}
+
+function openCategoryFromDiagram(catId){
+  switchPage('browse');
+  openCats.add(catId);
+  render();
+  setTimeout(()=>{
+    const el = document.querySelector('.category[data-cat="'+catId+'"]');
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 60);
+}
+
+render();
+showDetails('r-meaning');
+</script>
+</body>
+</html>
